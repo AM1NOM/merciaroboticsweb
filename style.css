@@ -14,7 +14,14 @@ body{margin:0;background:linear-gradient(180deg,#fff 0%, #fff 70%, #fff 100%);co
 
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--dark)}
-.logo{width:56px;height:56px;border-radius:10px;background:var(--red);display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(200,16,40,.12)}
+.logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(200,16,40,.12);
+}
+
 nav a{margin-left:14px;text-decoration:none;color:var(--dark);font-weight:500}
 nav a.button{background:var(--red);color:var(--white);padding:8px 12px;border-radius:8px}
 
