@@ -19,7 +19,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;pa
   height: 56px;
   object-fit: contain;
   border-radius: 10px;
-  background:var(rgb(155, 155, 155) 0.1);
+  background:var(rgb(96, 57, 213) 0.1);
   box-shadow: 0 6px 18px rgba(200,16,40,.12);
 }
 
