@@ -4,37 +4,40 @@
   --dark:#1b1b1b;
   --muted:#666;
   --max-width:1100px;
+    --electric-blue:#00aaff;
+    --charcoal:#23272a;
+    --max-width:1100px;
+    --radius:12px;
   --radius:12px;
   color-scheme: light;
   font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#001518 0%, #001518 70%, #001518 100%);color:var(--dark);}
+    background-color: var(--charcoal);
 .site{max-width:var(--max-width);margin:0 auto;padding:24px}
 body{
-  background-color: #000000;
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--white)}
 }
+  nav a{margin-left:14px;text-decoration:none;color:var(--white);font-weight:500}
 
-
-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+  nav a.button{background:var(--electric-blue);color:var(--white);padding:8px 12px;border-radius:8px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--dark)}
 .logo {
-  width: 56px;
+    color: var(--white);
   height: 56px;
   object-fit: contain;
-  border-radius: 10px;
+  .btn.primary{background:var(--electric-blue);color:var(--white)}
   background:var(rgb(0, 14, 26) 0.1);
-  box-shadow: 0 6px 18px rgba(200,16,40,.12);
+  .btn.ghost{background:transparent;border:1px solid var(--electric-blue);color:var(--electric-blue)}
 }
 
-nav a{margin-left:14px;text-decoration:none;color:var(--dark);font-weight:500}
+    color: var(--white);
 nav a.button{background:var(--white);color:var(--white);padding:8px 12px;border-radius:8px}
 
-.hero{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:28px;border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,.06);background:linear-gradient(90deg,#001518 0%, #001518 100%);margin-bottom:18px}
+  .card{background:var(--charcoal);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
 .hero-inner{display:flex;flex-direction:column;gap:12px}
-h1{
+  .avatar{width:68px;height:68px;border-radius:10px;background:var(--charcoal);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted)}
   margin:0;font-size:clamp(22px,3.2vw,34px);
-  color: #ffffff;
+  .sponsor-item{display:flex;align-items:center;justify-content:center;padding:12px;border-radius:10px;background:var(--charcoal);border:1px dashed var(--electric-blue);min-height:80px}
 }
 p.lead{margin:0;color:var(--muted)}
 .hero-cta{display:flex;gap:8px}
