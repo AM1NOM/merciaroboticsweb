@@ -4,6 +4,9 @@ const sponsorForm = document.getElementById('sponsorForm');
 const sponsorGrid = document.getElementById('sponsorGrid');
 const smsg = document.getElementById('smsg');
 
+const contactForm = document.getElementById('contactForm');
+const cmsg = document.getElementById('cmsg');
+
 function createSponsorElement(name, website, imgSrc){
   const div = document.createElement('div');
   div.className = 'sponsor-item';
@@ -32,7 +35,7 @@ function loadSponsors(){
 }
 loadSponsors();
 
-sponsorForm.addEventListener('submit', function(e){
+sponsorForm.addEventListener('submit', async function(e){
   e.preventDefault();
   smsg.textContent = '';
   const name = document.getElementById('sname').value.trim();
@@ -43,25 +46,47 @@ sponsorForm.addEventListener('submit', function(e){
   if(!name){ smsg.textContent = 'Please enter a sponsor name.'; return; }
   if(contact && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)){ smsg.textContent = 'Please enter a valid contact email.'; return; }
 
-  const sponsorObj = {name, tier, website, contact, img: null};
+  const message = `Name: ${name}\nTier: ${tier}\nWebsite: ${website}\nContact: ${contact}`;
 
-  function finalize(imgData){
-    sponsorObj.img = imgData;
-    sponsorGrid.appendChild(createSponsorElement(name, website, imgData));
-    smsg.textContent = 'Thanks — sponsorship noted locally. We will contact you to finalise details.';
-    try{
-      const existing = JSON.parse(localStorage.getItem('mercia_sponsors') || '[]');
-      existing.push(sponsorObj);
-      localStorage.setItem('mercia_sponsors', JSON.stringify(existing));
-    }catch(e){console.warn(e)}
-    sponsorForm.reset();
+  try{
+    const response = await fetch('http://localhost:8080/email/sponsor-inquiry', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({name, email: contact, message})
+    });
+    if(response.ok){
+      smsg.textContent = 'Sponsorship inquiry sent successfully!';
+      sponsorForm.reset();
+    } else {
+      smsg.textContent = 'Failed to send inquiry. Please try again.';
+    }
+  } catch(e){
+    smsg.textContent = 'Error sending inquiry. Please check your connection.';
   }
+});
 
-  if(file){
-    const reader = new FileReader();
-    reader.onload = () => finalize(reader.result);
-    reader.readAsDataURL(file);
-  } else {
-    finalize(null);
+contactForm.addEventListener('submit', async function(e){
+  e.preventDefault();
+  cmsg.textContent = '';
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  if(!name || !email || !message){ cmsg.textContent = 'Please fill in all fields.'; return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ cmsg.textContent = 'Please enter a valid email.'; return; }
+
+  try{
+    const response = await fetch('http://localhost:8080/email/contact', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({name, email, message})
+    });
+    if(response.ok){
+      cmsg.textContent = 'Message sent successfully!';
+      contactForm.reset();
+    } else {
+      cmsg.textContent = 'Failed to send message. Please try again.';
+    }
+  } catch(e){
+    cmsg.textContent = 'Error sending message. Please check your connection.';
   }
 });
