@@ -1,4 +1,3 @@
-/* Restored and fixed CSS for charcoal background, white text, electric blue buttons */
 :root {
   --electric-blue: #00aaff;
   --charcoal: #23272a;
@@ -14,6 +13,8 @@
 body {
   margin: 0;
   background: var(--charcoal);
+  background-image: radial-gradient(circle at 25% 25%, rgba(0,170,255,0.1) 2px, transparent 2px), radial-gradient(circle at 75% 75%, rgba(0,170,255,0.1) 2px, transparent 2px);
+  background-size: 20px 20px;
   color: var(--white);
 }
 .site { max-width: var(--max-width); margin: 0 auto; padding: 24px; }
