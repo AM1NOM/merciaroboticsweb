@@ -1,42 +1,11 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const robotEmojis = ['🤖', '🦾', '⚙️', '🔧', '🔩', '📡', '🛠️', '💡'];
 const sponsorForm = document.getElementById('sponsorForm');
 const sponsorGrid = document.getElementById('sponsorGrid');
 const smsg = document.getElementById('smsg');
 
 const contactForm = document.getElementById('contactForm');
 const cmsg = document.getElementById('cmsg');
-// Run after DOM is ready in case script loads early
-document.addEventListener('DOMContentLoaded', () => {
-  const robotEmojis = ['🤖', '🦾', '⚙️', '🔧', '🔩', '📡', '🛠️', '💡'];
-
-  function dropRobotEmoji() {
-    const el = document.createElement('div');
-    el.className = 'falling-robot';
-    el.textContent = robotEmojis[Math.floor(Math.random() * robotEmojis.length)];
-
-    // Random horizontal position within viewport, with small margin
-    const vw = window.innerWidth;
-    const left = Math.max(8, Math.min(vw - 40, Math.random() * vw));
-    el.style.left = left + 'px';
-
-    // Random size and duration for variety
-    el.style.fontSize = (Math.random() * 1.4 + 1.6) + 'rem';
-    const duration = (Math.random() * 2 + 4).toFixed(2) + 's';
-    el.style.animationDuration = duration + ', ' + duration;
-
-    document.body.appendChild(el);
-
-    // Clean up after animation
-    setTimeout(() => el.remove(), parseFloat(duration) * 1000 + 200);
-  }
-
-  // Drop one immediately and then every 30s
-  dropRobotEmoji();
-  setInterval(dropRobotEmoji, 30000);
-});
-
 
 function createSponsorElement(name, website, imgSrc){
   const div = document.createElement('div');
@@ -121,7 +90,3 @@ contactForm.addEventListener('submit', async function(e){
     cmsg.textContent = 'Error sending message. Please check your connection.';
   }
 });
-
-setInterval(dropRobotEmoji, 30000);
-dropRobotEmoji(); // Optional: drop one on page load
-
