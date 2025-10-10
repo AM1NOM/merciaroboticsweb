@@ -7,27 +7,36 @@ const smsg = document.getElementById('smsg');
 
 const contactForm = document.getElementById('contactForm');
 const cmsg = document.getElementById('cmsg');
-function dropRobotEmoji() {
-  const robot = document.createElement('div');
-  robot.className = 'falling-robot';
+// Run after DOM is ready in case script loads early
+document.addEventListener('DOMContentLoaded', () => {
+  const robotEmojis = ['🤖', '🦾', '⚙️', '🔧', '🔩', '📡', '🛠️', '💡'];
 
-  // Pick a random emoji
-  const emoji = robotEmojis[Math.floor(Math.random() * robotEmojis.length)];
-  robot.textContent = emoji;
+  function dropRobotEmoji() {
+    const el = document.createElement('div');
+    el.className = 'falling-robot';
+    el.textContent = robotEmojis[Math.floor(Math.random() * robotEmojis.length)];
 
-  // Random horizontal position
-  robot.style.left = Math.random() * window.innerWidth + 'px';
+    // Random horizontal position within viewport, with small margin
+    const vw = window.innerWidth;
+    const left = Math.max(8, Math.min(vw - 40, Math.random() * vw));
+    el.style.left = left + 'px';
 
-  // Optional: random size
-  robot.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+    // Random size and duration for variety
+    el.style.fontSize = (Math.random() * 1.4 + 1.6) + 'rem';
+    const duration = (Math.random() * 2 + 4).toFixed(2) + 's';
+    el.style.animationDuration = duration + ', ' + duration;
 
-  document.body.appendChild(robot);
+    document.body.appendChild(el);
 
-  // Remove after animation
-  setTimeout(() => {
-    robot.remove();
-  }, 5000);
-}
+    // Clean up after animation
+    setTimeout(() => el.remove(), parseFloat(duration) * 1000 + 200);
+  }
+
+  // Drop one immediately and then every 30s
+  dropRobotEmoji();
+  setInterval(dropRobotEmoji, 30000);
+});
+
 
 function createSponsorElement(name, website, imgSrc){
   const div = document.createElement('div');
@@ -115,3 +124,4 @@ contactForm.addEventListener('submit', async function(e){
 
 setInterval(dropRobotEmoji, 30000);
 dropRobotEmoji(); // Optional: drop one on page load
+
