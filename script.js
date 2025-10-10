@@ -1,11 +1,33 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+const robotEmojis = ['🤖', '🦾', '⚙️', '🔧', '🔩', '📡', '🛠️', '💡'];
 const sponsorForm = document.getElementById('sponsorForm');
 const sponsorGrid = document.getElementById('sponsorGrid');
 const smsg = document.getElementById('smsg');
 
 const contactForm = document.getElementById('contactForm');
 const cmsg = document.getElementById('cmsg');
+function dropRobotEmoji() {
+  const robot = document.createElement('div');
+  robot.className = 'falling-robot';
+
+  // Pick a random emoji
+  const emoji = robotEmojis[Math.floor(Math.random() * robotEmojis.length)];
+  robot.textContent = emoji;
+
+  // Random horizontal position
+  robot.style.left = Math.random() * window.innerWidth + 'px';
+
+  // Optional: random size
+  robot.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+
+  document.body.appendChild(robot);
+
+  // Remove after animation
+  setTimeout(() => {
+    robot.remove();
+  }, 5000);
+}
 
 function createSponsorElement(name, website, imgSrc){
   const div = document.createElement('div');
@@ -90,3 +112,6 @@ contactForm.addEventListener('submit', async function(e){
     cmsg.textContent = 'Error sending message. Please check your connection.';
   }
 });
+
+setInterval(dropRobotEmoji, 30000);
+dropRobotEmoji(); // Optional: drop one on page load
