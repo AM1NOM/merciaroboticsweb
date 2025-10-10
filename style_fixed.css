@@ -17,6 +17,18 @@ body {
   background-size: 20px 20px;
   color: var(--white);
 }
+#snake-game {
+  margin-top: 40px;
+  text-align: center;
+}
+
+#snake-game canvas {
+  border: 2px solid #fff;
+  background: #000;
+  display: block;
+  margin: 0 auto;
+}
+
 .site { max-width: var(--max-width); margin: 0 auto; padding: 24px; }
 header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
@@ -60,3 +72,4 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 }
 .muted { color: var(--muted); }
 .center { text-align: center; }
+
