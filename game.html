@@ -137,23 +137,23 @@ function loop() {
 
 // listen to keyboard events to move the snake
 document.addEventListener('keydown', function(e) {
-  // '1' key — move left
-  if (e.key === '1' && snake.dx === 0) {
+  // ',' key — move left
+  if (e.key === ',' && snake.dx === 0) {
     snake.dx = -grid;
     snake.dy = 0;
   }
-  // '2' key — move up
-  else if (e.key === '2' && snake.dy === 0) {
+  // ';' key — move up
+  else if (e.key === ';' && snake.dy === 0) {
     snake.dy = -grid;
     snake.dx = 0;
   }
-  // '3' key — move right
-  else if (e.key === '3' && snake.dx === 0) {
+  // '/' key — move right
+  else if (e.key === '/' && snake.dx === 0) {
     snake.dx = grid;
     snake.dy = 0;
   }
-  // '4' key — move down
-  else if (e.key === '4' && snake.dy === 0) {
+  // '.' key — move down
+  else if (e.key === '.' && snake.dy === 0) {
     snake.dy = grid;
     snake.dx = 0;
   }
