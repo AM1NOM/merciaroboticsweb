@@ -8,6 +8,11 @@
   --radius: 12px;
   color-scheme: light;
   font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --ring-size: 28px;
+  --ring-border: 2px;
+  --ring-color: #ffffff;       /* white ring to contrast the dark background */
+  --ring-scale-hover: 1.8;
+  --ring-transition: 140ms;
 }
 * { box-sizing: border-box; }
 body {
@@ -70,37 +75,7 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 .muted { color: var(--muted); }
 .center { text-align: center; }
 
-/* styles.css */
-:root {
-  --ring-size: 28px;
-  --ring-border: 2px;
-  --ring-color: #111;
-  --ring-scale-hover: 1.8;
-  --ring-transition: 140ms;
-}
-
-* {
-  cursor: none; /* hide default cursor for full effect */
-}
-
-
-main {
-  display: grid;
-  place-items: center;
-  gap: 1rem;
-  min-height: 100vh;
-}
-
-button.cta,
-a.cta {
-  padding: 0.75rem 1.2rem;
-  border: 1px solid #333;
-  background: #fff;
-  color: #111;
-  text-decoration: none;
-  border-radius: 8px;
-}
-
+/* Cursor ring */
 #cursor-ring {
   position: fixed;
   left: 0;
@@ -122,7 +97,7 @@ a.cta {
 /* Expanded state when hovering interactive elements */
 #cursor-ring.hover {
   transform: translate(var(--x, -50%), var(--y, -50%)) scale(var(--ring-scale-hover));
-  border-color: #0077ff;
+  border-color: var(--electric-blue);
 }
 
-
+#cursor-ring { background: rgba(255, 0, 0, 0.15); }
