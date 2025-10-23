@@ -1,9 +1,9 @@
 :root {
-  --ring-size: 32px; /* larger default size */
+  --ring-size: 32px;
   --ring-color: rgba(0,0,0,0.85);
   --ring-border: 2px;
   --ring-transition: 180ms cubic-bezier(.2,.9,.2,1);
-  --ring-active-size: 60px; /* fixed size when active */
+  --ring-active-size: 60px;
   --ring-z: 9999;
 }
 
@@ -19,7 +19,7 @@
   z-index: var(--ring-z);
   display: block;
   opacity: 1;
-  transition: opacity 200ms linear;
+  transition: all var(--ring-transition);
   background: transparent;
 }
 
@@ -30,22 +30,14 @@
   border-radius: 50%;
   border: var(--ring-border) solid var(--ring-color);
   background: transparent;
-  transition: transform var(--ring-transition);
-  will-change: transform;
+  transition: all var(--ring-transition);
 }
 
-/* hidden when leaving window */
 #cursor-ring.hidden {
   opacity: 0;
-  pointer-events: none;
 }
 
-/* active (hovering interactive element) */
 #cursor-ring.active {
   width: var(--ring-active-size);
   height: var(--ring-active-size);
-}
-
-#cursor-ring.active .ring {
-  border-color: var(--ring-color);
 }
