@@ -8,14 +8,14 @@ function dropRobot() {
 
   document.body.appendChild(robot);
 
-  // Remove after animation ends
-  robot.addEventListener("animationend", () => {
+  // Remove after it passes through the bottom
+  setTimeout(() => {
     robot.remove();
-  });
+  }, 5000); // matches fall animation duration
 }
 
 // Start 30s after load, then repeat every 15s
 setTimeout(() => {
   dropRobot(); // first drop
   setInterval(dropRobot, 15000);
-}, 15000);
+}, 30000);
