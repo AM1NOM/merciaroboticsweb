@@ -90,3 +90,56 @@ contactForm.addEventListener('submit', async function(e){
     cmsg.textContent = 'Error sending message. Please check your connection.';
   }
 });
+
+// script.js
+const ring = document.getElementById('cursor-ring');
+
+let x = window.innerWidth / 2;
+let y = window.innerHeight / 2;
+
+// Smooth follow using requestAnimationFrame
+let targetX = x;
+let targetY = y;
+
+function animate() {
+  // simple linear interpolation for smooth motion
+  x += (targetX - x) * 0.25;
+  y += (targetY - y) * 0.25;
+
+  ring.style.transform = `translate(${x}px, ${y}px) scale(${ring.classList.contains('hover') ? 1.8 : 1})`;
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Update target on mouse move
+window.addEventListener('mousemove', (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+});
+
+// Detect hover over interactive elements
+const isInteractive = (el) =>
+  el.matches('button, a, [role="button"], input, select, textarea, .cta');
+
+let hoverCount = 0; // handle nested events cleanly
+
+document.addEventListener('mouseover', (e) => {
+  if (isInteractive(e.target)) {
+    hoverCount++;
+    ring.classList.add('hover');
+  }
+});
+
+document.addEventListener('mouseout', (e) => {
+  if (isInteractive(e.target)) {
+    hoverCount = Math.max(0, hoverCount - 1);
+    if (hoverCount === 0) ring.classList.remove('hover');
+  }
+});
+
+// Keep ring inside viewport on resize
+window.addEventListener('resize', () => {
+  targetX = Math.min(targetX, window.innerWidth);
+  targetY = Math.min(targetY, window.innerHeight);
+});
+
