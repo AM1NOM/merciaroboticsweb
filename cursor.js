@@ -1,137 +1,14 @@
 // Cursor ring behaviour (self-contained)
 (function(){
   const interactiveSelector = 'a, button, input, textarea, select, summary, [role="button"], [data-interactive], .interactive';
-  const DEFAULT_SIZE = 20;
-  const PADDING = 12; // extra padding around hovered element
+  const NON_INTERACTIVE_SIZE = 28; // size when not over interactive
+  const ACTIVE_SIZE = 44;         // fixed size when over interactive
   const LERP = 0.18;
 
   // Disable on touch / coarse-pointer devices to avoid interference
-  const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches));
-  if (isTouchDevice) {
-    // ensure any existing element is hidden and exit early
-    const existing = document.getElementById('cursor-ring');
-    if (existing) existing.style.display = 'none';
-    return;
-  }
-
-  // create DOM if not present
-  let ringEl = document.getElementById('cursor-ring');
-  if (!ringEl) {
-    ringEl = document.createElement('div');
-    ringEl.id = 'cursor-ring';
-    ringEl.innerHTML = '<div class="ring"></div>';
-    document.documentElement.appendChild(ringEl);
-  } else if (!ringEl.querySelector('.ring')) {
-    ringEl.innerHTML = '<div class="ring"></div>';
-  }
-  const ring = ringEl.querySelector('.ring');
-
-  // initial styles ensuring correct starting size
-  ring.style.width = `${DEFAULT_SIZE}px`;
-  ring.style.height = `${DEFAULT_SIZE}px`;
-
-  // internal state
-  let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
-  let pos = { x: mouse.x, y: mouse.y };
-  let targetSize = DEFAULT_SIZE;
-  let isActive = false;
-
-  // smooth follow loop
-  function rafLoop(){
-    pos.x += (mouse.x - pos.x) * LERP;
-    pos.y += (mouse.y - pos.y) * LERP;
-    ringEl.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`;
-    ring.style.width = `${Math.max(8, targetSize)}px`;
-    ring.style.height = `${Math.max(8, targetSize)}px`;
-    requestAnimationFrame(rafLoop);
-  }
-  requestAnimationFrame(rafLoop);
-
-  // pointer movement
-  document.addEventListener('pointermove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    ringEl.classList.remove('hidden');
-  }, { passive: true });
-
-  // hide when leaving window
-  window.addEventListener('blur', () => ringEl.classList.add('hidden'));
-  document.addEventListener('pointerleave', () => ringEl.classList.add('hidden'));
-  document.addEventListener('pointerenter', () => ringEl.classList.remove('hidden'));
-
-  // helper to set active/size
-  function setActive(el){
-    if (!el) return;
-    isActive = true;
-    ringEl.classList.add('active');
-
-    if (el && el.getBoundingClientRect) {
-      const r = el.getBoundingClientRect();
-      const maxDim = Math.max(r.width, r.height);
-      targetSize = Math.max(DEFAULT_SIZE, Math.min(220, Math.ceil(maxDim + PADDING)));
-
-      // Inputs should be less intrusive
-      if (/input|textarea|select/.test(el.tagName.toLowerCase())) {
-        ringEl.classList.add('input-focus');
-        targetSize = Math.max(14, Math.ceil(Math.min(maxDim + 6, 48)));
-      } else {
-        ringEl.classList.remove('input-focus');
-      }
-
-      // soft-center ring near element (no hard snap)
-      mouse.x += (r.left + r.width / 2 - mouse.x) * 0.25;
-      mouse.y += (r.top + r.height / 2 - mouse.y) * 0.25;
-    } else {
-      targetSize = DEFAULT_SIZE * 1.6;
-      ringEl.classList.remove('input-focus');
-    }
-  }
-
-  function clearActive(){
-    isActive = false;
-    ringEl.classList.remove('active');
-    ringEl.classList.remove('input-focus');
-    targetSize = DEFAULT_SIZE;
-  }
-
-  // delegated handlers so dynamic elements are handled
-  document.addEventListener('pointerover', (ev) => {
-    const el = ev.target && ev.target.closest ? ev.target.closest(interactiveSelector) : null;
-    if (el) setActive(el);
-  }, { capture: true });
-
-  document.addEventListener('pointerout', (ev) => {
-    const to = ev.relatedTarget;
-    if (to && to.closest && to.closest(interactiveSelector)) {
-      // moving to another interactive element — let its pointerover handle it
-      return;
-    }
-    clearActive();
-  }, { capture: true });
-
-  // keyboard focus support
-  document.addEventListener('focusin', (ev) => {
-    const el = ev.target && ev.target.closest ? ev.target.closest(interactiveSelector) : null;
-    if (el) setActive(el);
-  });
-  document.addEventListener('focusout', () => clearActive());
-
-  // keep ring within window on resize
-  window.addEventListener('resize', () => {
-    mouse.x = Math.min(mouse.x, window.innerWidth);
-    mouse.y = Math.min(mouse.y, window.innerHeight);
-  });
-
-  // expose small API for debugging / tuning
-  wind// ...existing code...
-(function(){
-  const interactiveSelector = 'a, button, input, textarea, select, summary, [role="button"], [data-interactive], .interactive';
-  const DEFAULT_SIZE = 20;
-  const PADDING = 12; // extra padding around hovered element
-  const LERP = 0.18;
-
-  // Disable on touch / coarse-pointer devices to avoid interference
-  const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches));
+  const isTouchDevice = (('ontouchstart' in window) ||
+                        (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) ||
+                        (window.matchMedia && window.matchMedia('(pointer: coarse)').matches));
   if (isTouchDevice) {
     const existing = document.getElementById('cursor-ring');
     if (existing) existing.style.display = 'none';
@@ -150,26 +27,26 @@
   }
   const ring = ringEl.querySelector('.ring');
 
-  // initial styles ensuring correct starting size on the wrapper (so centering stays correct)
-  ringEl.style.width = `${DEFAULT_SIZE}px`;
-  ringEl.style.height = `${DEFAULT_SIZE}px`;
-  ringEl.style.background = 'transparent';
-  ringEl.style.border = 'none';
+  // make sure wrapper starts at non-interactive size and inner ring is 100%
+  let targetSize = NON_INTERACTIVE_SIZE;
+  ringEl.style.width = `${targetSize}px`;
+  ringEl.style.height = `${targetSize}px`;
   ring.style.width = `100%`;
   ring.style.height = `100%`;
+  ringEl.style.background = 'transparent';
+  ringEl.style.border = 'none';
+  ringEl.style.outline = 'none';
 
   // internal state
   let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
   let pos = { x: mouse.x, y: mouse.y };
-  let targetSize = DEFAULT_SIZE;
   let isActive = false;
 
-  // smooth follow loop
+  // smooth follow loop (wrapper sized to targetSize so translate(-50%,-50%) keeps it centered)
   function rafLoop(){
     pos.x += (mouse.x - pos.x) * LERP;
     pos.y += (mouse.y - pos.y) * LERP;
     ringEl.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`;
-    // update wrapper size (keeps centering stable). inner .ring remains 100%.
     const size = Math.max(8, Math.round(targetSize));
     ringEl.style.width = `${size}px`;
     ringEl.style.height = `${size}px`;
@@ -184,84 +61,59 @@
     ringEl.classList.remove('hidden');
   }, { passive: true });
 
-  // hide when leaving window
+  // hide when leaving window/tab
   window.addEventListener('blur', () => ringEl.classList.add('hidden'));
   document.addEventListener('pointerleave', () => ringEl.classList.add('hidden'));
   document.addEventListener('pointerenter', () => ringEl.classList.remove('hidden'));
 
-  // helper to set active/size
-  function setActive(el){
-    if (!el) return;
+  // set to fixed active size when hovering interactive element
+  function setActiveFixed(){
     isActive = true;
     ringEl.classList.add('active');
-
-    if (el && el.getBoundingClientRect) {
-      const r = el.getBoundingClientRect();
-      const maxDim = Math.max(r.width, r.height);
-      targetSize = Math.max(DEFAULT_SIZE, Math.min(220, Math.ceil(maxDim + PADDING)));
-
-      // Inputs should be less intrusive
-      if (/input|textarea|select/.test(el.tagName.toLowerCase())) {
-        ringEl.classList.add('input-focus');
-        targetSize = Math.max(14, Math.ceil(Math.min(maxDim + 6, 48)));
-      } else {
-        ringEl.classList.remove('input-focus');
-      }
-
-      // soft-center ring near element (no hard snap)
-      mouse.x += (r.left + r.width / 2 - mouse.x) * 0.25;
-      mouse.y += (r.top + r.height / 2 - mouse.y) * 0.25;
-    } else {
-      targetSize = DEFAULT_SIZE * 1.6;
-      ringEl.classList.remove('input-focus');
-    }
+    ringEl.classList.remove('input-focus');
+    targetSize = ACTIVE_SIZE;
   }
 
   function clearActive(){
     isActive = false;
     ringEl.classList.remove('active');
     ringEl.classList.remove('input-focus');
-    targetSize = DEFAULT_SIZE;
+    targetSize = NON_INTERACTIVE_SIZE;
   }
 
-  // delegated handlers so dynamic elements are handled
+  // delegated handlers (no centering toward element, only size change)
   document.addEventListener('pointerover', (ev) => {
     const el = ev.target && ev.target.closest ? ev.target.closest(interactiveSelector) : null;
-    if (el) setActive(el);
+    if (el) {
+      setActiveFixed();
+    }
   }, { capture: true });
 
   document.addEventListener('pointerout', (ev) => {
     const to = ev.relatedTarget;
-    if (to && to.closest && to.closest(interactiveSelector)) {
-      return;
-    }
+    // if moving to another interactive element, keep active (its pointerover will run)
+    if (to && to.closest && to.closest(interactiveSelector)) return;
     clearActive();
   }, { capture: true });
 
-  // keyboard focus support
+  // keyboard focus support: treat focused interactive as active
   document.addEventListener('focusin', (ev) => {
     const el = ev.target && ev.target.closest ? ev.target.closest(interactiveSelector) : null;
-    if (el) setActive(el);
+    if (el) setActiveFixed();
   });
   document.addEventListener('focusout', () => clearActive());
 
-  // keep ring within window on resize
+  // constrain mouse position on resize
   window.addEventListener('resize', () => {
     mouse.x = Math.min(mouse.x, window.innerWidth);
     mouse.y = Math.min(mouse.y, window.innerHeight);
   });
 
-  // expose small API for debugging / tuning
+  // small API for debugging/tuning
   window.__cursorRing = {
     el: ringEl,
-    setActiveSize: (px) => { targetSize = Number(px) || DEFAULT_SIZE; },
-    hide: () => ringEl.classList.add('hidden'),
-    show: () => ringEl.classList.remove('hidden')
-  };
-})();
-/* ...existing code... */ow.__cursorRing = {
-    el: ringEl,
-    setActiveSize: (px) => { targetSize = Number(px) || DEFAULT_SIZE; },
+    setActiveSize: (px) => { targetSize = Number(px) || NON_INTERACTIVE_SIZE; },
+    setNonInteractiveSize: (px) => { if (!isActive) targetSize = Number(px) || NON_INTERACTIVE_SIZE; },
     hide: () => ringEl.classList.add('hidden'),
     show: () => ringEl.classList.remove('hidden')
   };

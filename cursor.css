@@ -1,5 +1,5 @@
 :root{
-  --ring-size: 20px;
+  --ring-size: 28px; /* match NON_INTERACTIVE_SIZE */
   --ring-color: rgba(0,0,0,0.85);
   --ring-border: 2px;
   --ring-transition: 180ms cubic-bezier(.2,.9,.2,1);
@@ -18,7 +18,7 @@
   z-index: var(--ring-z);
   display: block;
   opacity: 1;
-  transition: opacity 200ms linear;
+  transition: opacity 200ms linear, width var(--ring-transition), height var(--ring-transition);
   background: transparent;
   border: none;
   outline: none;
@@ -33,7 +33,7 @@
   border: var(--ring-border) solid var(--ring-color);
   background: transparent;
   transform-origin: center;
-  transition: width var(--ring-transition), height var(--ring-transition), border-color var(--ring-transition), transform var(--ring-transition);
+  transition: border-color var(--ring-transition), transform var(--ring-transition);
   will-change: width, height, transform;
   overflow: visible;
 }
