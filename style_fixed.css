@@ -22,14 +22,25 @@ body {
 }
 
 .dot {
+  position: absolute;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background-color: #7DF9FF;
-  position: absolute;
   opacity: 0.5;
   box-shadow: 0 0 8px rgba(125, 249, 255, 0.6);
-  transition: opacity 0.5s ease;
+  transition: transform 0.2s ease, opacity 0.4s ease;
+}
+
+
+#dot-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0; /* behind everything */
 }
 
 
@@ -91,5 +102,6 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 .muted { color: var(--muted); }
 
 .center { text-align: center; }
+
 
 
