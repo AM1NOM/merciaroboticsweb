@@ -228,47 +228,45 @@ document.addEventListener('mousemove', e => {
   mouse.y = e.clientY;
 });
 
-// Create dots and store original positions
-for (let i = 0; i < numDots; i++) {
-  const dot = document.createElement('div');
-  dot.className = 'dot';
 
-  const x = Math.random() * window.innerWidth;
-  const y = Math.random() * window.innerHeight;
 
-  dot.style.left = `${x}px`;
-  dot.style.top = `${y}px`;
+  for (let i = 0; i < numDots; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
 
-  dot.dataset.origX = x;
-  dot.dataset.origY = y;
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
 
-  container.appendChild(dot);
-  dots.push(dot);
-}
+    dot.style.left = `${x}px`;
+    dot.style.top = `${y}px`;
 
-// Animate dots
-function animateDots() {
-  dots.forEach(dot => {
-    const rect = dot.getBoundingClientRect();
-    const dx = mouse.x - rect.left;
-    const dy = mouse.y - rect.top;
-    const dist = Math.sqrt(dx * dx + dy * dy);
+    dot.dataset.origX = x;
+    dot.dataset.origY = y;
 
-    const origX = parseFloat(dot.dataset.origX);
-    const origY = parseFloat(dot.dataset.origY);
+    container.appendChild(dot);
+    dots.push(dot);
+  }
 
-    if (dist < maxInfluence) {
-      const moveX = dx * 0.1;
-      const moveY = dy * 0.1;
-      dot.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      dot.style.opacity = '0.8';
-    } else {
-      dot.style.transform = 'translate(0, 0)';
-      dot.style.opacity = '0.5';
-    }
-  });
+  function animateDots() {
+    dots.forEach(dot => {
+      const rect = dot.getBoundingClientRect();
+      const dx = mouse.x - rect.left;
+      const dy = mouse.y - rect.top;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < maxInfluence) {
+        const moveX = dx * 0.1;
+        const moveY = dy * 0.1;
+        dot.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        dot.style.opacity = '0.8';
+      } else {
+        dot.style.transform = 'translate(0, 0)';
+        dot.style.opacity = '0.5';
+      }
+    });
+
+    requestAnimationFrame(animateDots);
+  }
 
   requestAnimationFrame(animateDots);
-}
-
-requestAnimationFrame(animateDots);
+});
