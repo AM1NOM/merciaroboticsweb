@@ -6,47 +6,26 @@
 
 <head> 
 
-  <meta charset="utf-8" /> 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mercia Robotics — Mercia School | FTC Team</title>
+  <meta name="description" content="Mercia Robotics (Mercia School) — FTC team. Sponsorship information and contact." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <title>Mercia Robotics — Mercia School | FTC Team</title> 
-
-  <meta name="description" content="Mercia Robotics (Mercia School) — FTC team. Sponsorship information and contact." /> 
-
-  <link rel="preconnect" href="https://fonts.googleapis.com"> 
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"> 
-
-  <link rel="stylesheet" href="style_fixed.css"> 
-
+  <link rel="stylesheet" href="style_fixed.css">
   <link rel="stylesheet" href="robots.css">
-
-  <link rel="sytlesheet" href="cursor.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
-
-
+  <!-- Fixed: correct stylesheet filename for cursor styles -->
+  <link rel="stylesheet" href="cursor.css">
 
 
 </head> 
 
 <body> 
 
-  <div id="cursor-ring"></div>
-  
-  <script src="script.js"></script> 
-
-  <script defer src="cursor.js"></script>
-   <!-- Three.js core -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-  <!-- GLTFLoader for loading .glb/.gltf models -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
-  <!-- Your custom script -->
-  
+  <div id="cursor-ring" aria-hidden = "true"></div>
 
   <div class="site"> 
 
@@ -816,7 +795,16 @@ requestAnimationFrame(loop);
   </div> 
 
   
+<!-- Scripts: include third-party libs once, then app scripts -->
+  <!-- Three.js core and GLTFLoader (single include each) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
 
+  <!-- your app script(s) -->
+  <script src="script.js"></script>
+
+  <!-- Cursor ring behaviour -->
+  <script defer src="cursor.js"></script>
 
 </body> 
 
