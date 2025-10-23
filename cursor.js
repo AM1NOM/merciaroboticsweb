@@ -1,6 +1,6 @@
 (function(){
   const interactiveSelector = 'a, button, input, textarea, select, summary, [role="button"], [data-interactive], .interactive';
-  const LERP = 0.18;
+  const LERP = 0.35;
 
   // create ring element immediately
   let ringEl = document.createElement('div');
