@@ -124,12 +124,13 @@ window.addEventListener('DOMContentLoaded', () => {
   let targetY = y;
 
   function animate() {
-    x += (targetX - x) * 0.25;
-    y += (targetY - y) * 0.25;
+  x += (targetX - x) * 0.25;
+  y += (targetY - y) * 0.25;
+  console.log("Animating at:", x, y); // debug
+  ring.style.transform = `translate(${x}px, ${y}px) scale(${ring.classList.contains('hover') ? 1.8 : 1})`;
+  requestAnimationFrame(animate);
+}
 
-    ring.style.transform = `translate(${x}px, ${y}px) scale(${
-      ring.classList.contains('hover') ? 1.8 : 1
-    })`;
 
     requestAnimationFrame(animate);
   }
@@ -167,3 +168,4 @@ window.addEventListener('DOMContentLoaded', () => {
     targetY = Math.min(targetY, window.innerHeight);
   });
 });
+
