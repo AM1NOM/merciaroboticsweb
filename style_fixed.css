@@ -8,11 +8,6 @@
   --radius: 12px;
   color-scheme: light;
   font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  --ring-size: 28px;
-  --ring-border: 2px;
-  --ring-color: #ffffff;       /* white ring to contrast the dark background */
-  --ring-scale-hover: 1.8;
-  --ring-transition: 140ms;
 }
 * { box-sizing: border-box; }
 body {
@@ -23,11 +18,9 @@ body {
   color: var(--white);
   min-height: 100vh;
   font-family: 'Roboto', system-ui, sans-serif;
+  cursor: none;
 }
 
-#cursor-ring {
-  background: rgba(255,0,0,0.2); /* debug */
-}
 
 
 
@@ -73,4 +66,5 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
   .tiers { grid-template-columns: 1fr; }
 }
 .muted { color: var(--muted); }
+
 .center { text-align: center; }
