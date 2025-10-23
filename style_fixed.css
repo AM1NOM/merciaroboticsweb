@@ -1,6 +1,4 @@
-/* Global variables and theme */
 :root {
-  /* Site theme */
   --electric-blue: #00aaff;
   --charcoal: #23272a;
   --white: #ffffff;
@@ -10,35 +8,24 @@
   --radius: 12px;
   color-scheme: light;
   font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-
-  /* Cursor ring variables */
-  --ring-size: 28px;
-  --ring-border: 2px;
-  --ring-color: #ffffff;       /* white ring to contrast the dark background */
-  --ring-scale-hover: 1.8;
-  --ring-transition: 140ms;
 }
-
 * { box-sizing: border-box; }
-
-/* Merged body styles (keep your background and typography) */
 body {
   margin: 0;
   background: var(--charcoal);
-  background-image:
-    radial-gradient(circle at 25% 25%, rgba(0,170,255,0.1) 2px, transparent 2px),
-    radial-gradient(circle at 75% 75%, rgba(0,170,255,0.1) 2px, transparent 2px);
+  background-image: radial-gradient(...);
   background-size: 20px 20px;
   color: var(--white);
   min-height: 100vh;
-  font-family: var(--font-family, 'Roboto'), system-ui, sans-serif;
+  font-family: 'Roboto', system-ui, sans-serif;
 }
 
-/* Optional: hide the native cursor. Uncomment when the ring is visible.
-* { cursor: none; }
-*/
+#cursor-ring {
+  background: rgba(255,0,0,0.2); /* debug */
+}
 
-/* Layout and components */
+
+
 .site { max-width: var(--max-width); margin: 0 auto; padding: 24px; }
 header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
@@ -69,24 +56,51 @@ form input, form textarea, form select { width: 100%; padding: 8px; margin: 6px 
 form label { font-size: 13px; color: var(--muted); }
 .small { font-size: 13px; color: var(--muted); }
 footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
-
 @media (max-width:900px) {
   .grid { grid-template-columns: repeat(2,1fr); }
   .hero { grid-template-columns: 1fr; }
   .tiers { grid-template-columns: repeat(2,1fr); }
 }
-
 @media (max-width:600px) {
   .grid { grid-template-columns: 1fr; }
   nav { display: none; }
   header { flex-wrap: wrap; }
   .tiers { grid-template-columns: 1fr; }
 }
-
 .muted { color: var(--muted); }
 .center { text-align: center; }
 
-/* Cursor ring */
+/* styles.css */
+:root {
+  --ring-size: 28px;
+  --ring-border: 2px;
+  --ring-color: #111;
+  --ring-scale-hover: 1.8;
+  --ring-transition: 140ms;
+}
+
+* {
+  cursor: none; /* hide default cursor for full effect */
+}
+
+
+main {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  min-height: 100vh;
+}
+
+button.cta,
+a.cta {
+  padding: 0.75rem 1.2rem;
+  border: 1px solid #333;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
 #cursor-ring {
   position: fixed;
   left: 0;
@@ -108,10 +122,7 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 /* Expanded state when hovering interactive elements */
 #cursor-ring.hover {
   transform: translate(var(--x, -50%), var(--y, -50%)) scale(var(--ring-scale-hover));
-  border-color: var(--electric-blue);
+  border-color: #0077ff;
 }
 
-/* Optional: quick debug helper — uncomment to see the ring background
-#cursor-ring { background: rgba(255, 0, 0, 0.15); }
-*/
 
