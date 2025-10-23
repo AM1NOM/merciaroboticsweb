@@ -2,17 +2,24 @@
   position: absolute;
   top: -3rem;
   font-size: 3rem;
-  animation: fall 5s linear forwards;
-  transform: perspective(500px) rotateY(0deg);
+  animation: fall 5s linear forwards, spin 5s linear infinite;
+  transform-style: preserve-3d;
 }
 
 @keyframes fall {
   0% {
-    transform: translateY(-3rem) rotateY(0deg);
-    opacity: 1;
+    transform: translateY(-3rem) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
   100% {
-    transform: translateY(110vh) rotateY(360deg);
-    opacity: 0;
+    transform: translateY(110vh) rotateX(720deg) rotateY(720deg) rotateZ(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(720deg) rotateY(720deg) rotateZ(360deg);
   }
 }
