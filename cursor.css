@@ -1,4 +1,3 @@
-/* Cursor ring styles — tuned for visibility and accessibility */
 :root{
   --ring-size: 20px;
   --ring-color: rgba(0,0,0,0.85);
@@ -20,10 +19,14 @@
   display: block;
   opacity: 1;
   transition: opacity 200ms linear;
+  background: transparent;
+  border: none;
+  outline: none;
 }
 
 #cursor-ring .ring {
   box-sizing: border-box;
+  display: block;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -32,6 +35,7 @@
   transform-origin: center;
   transition: width var(--ring-transition), height var(--ring-transition), border-color var(--ring-transition), transform var(--ring-transition);
   will-change: width, height, transform;
+  overflow: visible;
 }
 
 /* hidden when leaving window */
@@ -48,7 +52,3 @@
   border-color: rgba(0,0,0,0.45);
   border-width: 1px;
 }
-
-/* Optional: if you want the custom ring only, uncomment the following,
-   but be mindful of accessibility on inputs. */
-body { cursor: none; } 
