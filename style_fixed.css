@@ -63,4 +63,64 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 .muted { color: var(--muted); }
 .center { text-align: center; }
 
+/* styles.css */
+:root {
+  --ring-size: 28px;
+  --ring-border: 2px;
+  --ring-color: #111;
+  --ring-scale-hover: 1.8;
+  --ring-transition: 140ms;
+}
+
+* {
+  cursor: none; /* hide default cursor for full effect */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  min-height: 100vh;
+}
+
+button.cta,
+a.cta {
+  padding: 0.75rem 1.2rem;
+  border: 1px solid #333;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+#cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border: var(--ring-border) solid var(--ring-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+  pointer-events: none; /* do not block interactions */
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    transform var(--ring-transition) ease,
+    border-color var(--ring-transition) ease;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* Expanded state when hovering interactive elements */
+#cursor-ring.hover {
+  transform: translate(var(--x, -50%), var(--y, -50%)) scale(var(--ring-scale-hover));
+  border-color: #0077ff;
+}
+
 
