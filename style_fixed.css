@@ -13,10 +13,17 @@
 body {
   margin: 0;
   background: var(--charcoal);
-  background-image: radial-gradient(circle at 25% 25%, rgba(0,170,255,0.1) 2px, transparent 2px), radial-gradient(circle at 75% 75%, rgba(0,170,255,0.1) 2px, transparent 2px);
+  background-image: radial-gradient(...);
   background-size: 20px 20px;
   color: var(--white);
+  min-height: 100vh;
+  font-family: 'Roboto', system-ui, sans-serif;
 }
+
+#cursor-ring {
+  background: rgba(255,0,0,0.2); /* debug */
+}
+
 
 
 .site { max-width: var(--max-width); margin: 0 auto; padding: 24px; }
@@ -76,11 +83,6 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
   cursor: none; /* hide default cursor for full effect */
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, sans-serif;
-}
 
 main {
   display: grid;
@@ -122,5 +124,6 @@ a.cta {
   transform: translate(var(--x, -50%), var(--y, -50%)) scale(var(--ring-scale-hover));
   border-color: #0077ff;
 }
+
 
 
