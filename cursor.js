@@ -1,9 +1,18 @@
-// ...existing code...
+// Cursor ring behaviour (self-contained)
 (function(){
   const interactiveSelector = 'a, button, input, textarea, select, summary, [role="button"], [data-interactive], .interactive';
   const DEFAULT_SIZE = 20;
   const PADDING = 12; // extra padding around hovered element
   const LERP = 0.18;
+
+  // Disable on touch / coarse-pointer devices to avoid interference
+  const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches));
+  if (isTouchDevice) {
+    // ensure any existing element is hidden and exit early
+    const existing = document.getElementById('cursor-ring');
+    if (existing) existing.style.display = 'none';
+    return;
+  }
 
   // create DOM if not present
   let ringEl = document.getElementById('cursor-ring');
@@ -32,8 +41,8 @@
     pos.x += (mouse.x - pos.x) * LERP;
     pos.y += (mouse.y - pos.y) * LERP;
     ringEl.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`;
-    ring.style.width = `${targetSize}px`;
-    ring.style.height = `${targetSize}px`;
+    ring.style.width = `${Math.max(8, targetSize)}px`;
+    ring.style.height = `${Math.max(8, targetSize)}px`;
     requestAnimationFrame(rafLoop);
   }
   requestAnimationFrame(rafLoop);
@@ -45,29 +54,33 @@
     ringEl.classList.remove('hidden');
   }, { passive: true });
 
-  document.addEventListener('mouseleave', () => ringEl.classList.add('hidden'));
-  document.addEventListener('mouseenter', () => ringEl.classList.remove('hidden'));
+  // hide when leaving window
+  window.addEventListener('blur', () => ringEl.classList.add('hidden'));
+  document.addEventListener('pointerleave', () => ringEl.classList.add('hidden'));
+  document.addEventListener('pointerenter', () => ringEl.classList.remove('hidden'));
 
   // helper to set active/size
   function setActive(el){
     if (!el) return;
     isActive = true;
     ringEl.classList.add('active');
+
     if (el && el.getBoundingClientRect) {
       const r = el.getBoundingClientRect();
       const maxDim = Math.max(r.width, r.height);
       targetSize = Math.max(DEFAULT_SIZE, Math.min(220, Math.ceil(maxDim + PADDING)));
 
-      // For inputs make the ring smaller / less intrusive
+      // Inputs should be less intrusive
       if (/input|textarea|select/.test(el.tagName.toLowerCase())) {
         ringEl.classList.add('input-focus');
         targetSize = Math.max(14, Math.ceil(Math.min(maxDim + 6, 48)));
       } else {
         ringEl.classList.remove('input-focus');
       }
-       
-      mouse.x = r.left + r.width / 2;
-      mouse.y = r.top + r.height / 2;
+
+      // soft-center ring near element (no hard snap)
+      mouse.x += (r.left + r.width / 2 - mouse.x) * 0.25;
+      mouse.y += (r.top + r.height / 2 - mouse.y) * 0.25;
     } else {
       targetSize = DEFAULT_SIZE * 1.6;
       ringEl.classList.remove('input-focus');
@@ -117,4 +130,3 @@
     show: () => ringEl.classList.remove('hidden')
   };
 })();
-/* ...existing code... */

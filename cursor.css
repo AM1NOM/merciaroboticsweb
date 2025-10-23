@@ -1,4 +1,4 @@
-/* ...existing code... */
+/* Cursor ring styles — tuned for visibility and accessibility */
 :root{
   --ring-size: 20px;
   --ring-color: rgba(0,0,0,0.85);
@@ -35,7 +35,7 @@
 }
 
 /* hidden when leaving window */
-#cursor-ring.hidden { opacity: 0; }
+#cursor-ring.hidden { opacity: 0; pointer-events: none; }
 
 /* active (hovering interactive element) */
 #cursor-ring.active .ring {
@@ -49,7 +49,6 @@
   border-width: 1px;
 }
 
-/* Optional accessibility: do not force-hide native cursor by default.
-   If you want the custom ring only, uncomment: */
-/* body { cursor: none; } */
-/* ...existing code... */
+/* Optional: if you want the custom ring only, uncomment the following,
+   but be mindful of accessibility on inputs. */
+body { cursor: none; } 
