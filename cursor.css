@@ -1,6 +1,6 @@
 :root {
   --ring-size: 32px;
-  --ring-color: rgba(125, 249, 255);
+  --ring-color: rgba(125, 249, 255, 0.8);
   --ring-border: 2px;
   --ring-transition: 180ms cubic-bezier(.2,.9,.2,1);
   --ring-active-size: 60px;
