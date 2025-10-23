@@ -29,7 +29,7 @@ body {
   background-color: #7DF9FF;
   opacity: 0.5;
   box-shadow: 0 0 8px rgba(125, 249, 255, 0.6);
-  transition: transform 0.2s ease, opacity 0.4s ease;
+  transition: transform 0.6s ease, opacity 0.4s ease;
 }
 
 
@@ -102,6 +102,7 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 .muted { color: var(--muted); }
 
 .center { text-align: center; }
+
 
 
 
