@@ -1,8 +1,9 @@
-:root{
-  --ring-size: 28px; /* match NON_INTERACTIVE_SIZE */
+:root {
+  --ring-size: 32px; /* larger default size */
   --ring-color: rgba(0,0,0,0.85);
   --ring-border: 2px;
   --ring-transition: 180ms cubic-bezier(.2,.9,.2,1);
+  --ring-active-size: 60px; /* fixed size when active */
   --ring-z: 9999;
 }
 
@@ -13,42 +14,38 @@
   width: var(--ring-size);
   height: var(--ring-size);
   pointer-events: none;
-  transform: translate3d(-50%,-50%,0) scale(1);
-  will-change: transform, width, height, opacity;
+  transform: translate3d(-50%,-50%,0);
+  will-change: transform, width, height;
   z-index: var(--ring-z);
   display: block;
   opacity: 1;
-  transition: opacity 200ms linear, width var(--ring-transition), height var(--ring-transition);
+  transition: opacity 200ms linear;
   background: transparent;
-  border: none;
-  outline: none;
 }
 
 #cursor-ring .ring {
   box-sizing: border-box;
-  display: block;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   border: var(--ring-border) solid var(--ring-color);
   background: transparent;
-  transform-origin: center;
-  transition: border-color var(--ring-transition), transform var(--ring-transition);
-  will-change: width, height, transform;
-  overflow: visible;
+  transition: transform var(--ring-transition);
+  will-change: transform;
 }
 
 /* hidden when leaving window */
-#cursor-ring.hidden { opacity: 0; pointer-events: none; }
-
-/* active (hovering interactive element) */
-#cursor-ring.active .ring {
-  transform: scale(1);
-  border-color: var(--ring-color);
+#cursor-ring.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* reduce interference on text inputs: make ring more subtle */
-#cursor-ring.input-focus .ring {
-  border-color: rgba(0,0,0,0.45);
-  border-width: 1px;
+/* active (hovering interactive element) */
+#cursor-ring.active {
+  width: var(--ring-active-size);
+  height: var(--ring-active-size);
+}
+
+#cursor-ring.active .ring {
+  border-color: var(--ring-color);
 }
