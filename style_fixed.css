@@ -21,7 +21,29 @@ body {
   cursor: none;
 }
 
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #7DF9FF;
+  position: absolute;
+  opacity: 0.5;
+  transition: opacity 0.5s ease, box-shadow 0.5s ease;
+  box-shadow: 0 0 8px rgba(125, 249, 255, 0.6);
+}
 
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(125, 249, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(125, 249, 255, 0.8);
+  }
+}
+
+.dot {
+  animation: glowPulse 2s infinite ease-in-out;
+}
 
 
 .site { max-width: var(--max-width); margin: 0 auto; padding: 24px; }
@@ -68,3 +90,4 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 .muted { color: var(--muted); }
 
 .center { text-align: center; }
+
