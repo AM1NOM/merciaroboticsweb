@@ -109,63 +109,109 @@ contactForm.addEventListener('submit', async function (e) {
   }
 });
 
-// --- Cursor ring logic ---
+// ...existing code...
+(function(){
+  const interactiveSelector = 'a, button, input, textarea, select, summary, [role="button"], [data-interactive], .interactive';
+  const DEFAULT_SIZE = 20;
+  const PADDING = 12; // extra padding around hovered element
+  const LERP = 0.18;
 
-window.addEventListener('DOMContentLoaded', () => {
-  const ring = document.getElementById('cursor-ring');
-  if (!ring) {
-    console.warn('No #cursor-ring element found in DOM.');
-    return;
+  // create DOM
+  let ringEl = document.getElementById('cursor-ring');
+  if (!ringEl) {
+    ringEl = document.createElement('div');
+    ringEl.id = 'cursor-ring';
+    ringEl.innerHTML = '<div class="ring"></div>';
+    document.documentElement.appendChild(ringEl);
+  }
+  const ring = ringEl.querySelector('.ring');
+
+  // internal state
+  let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+  let pos = { x: mouse.x, y: mouse.y };
+  let targetSize = DEFAULT_SIZE;
+  let isActive = false;
+
+  // smooth follow loop
+  function rafLoop(){
+    pos.x += (mouse.x - pos.x) * LERP;
+    pos.y += (mouse.y - pos.y) * LERP;
+    ringEl.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`;
+    ring.style.width = `${targetSize}px`;
+    ring.style.height = `${targetSize}px`;
+    requestAnimationFrame(rafLoop);
+  }
+  requestAnimationFrame(rafLoop);
+
+  // events
+  document.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    ringEl.classList.remove('hidden');
+  });
+
+  document.addEventListener('mouseleave', () => ringEl.classList.add('hidden'));
+  document.addEventListener('mouseenter', () => ringEl.classList.remove('hidden'));
+
+  // helper to set active/size
+  function setActive(el){
+    isActive = true;
+    ringEl.classList.add('active');
+    if (el && el.getBoundingClientRect) {
+      const r = el.getBoundingClientRect();
+      const maxDim = Math.max(r.width, r.height);
+      targetSize = Math.max(DEFAULT_SIZE, Math.min(160, Math.ceil(maxDim + PADDING)));
+      if (/input|textarea|select/.test(el.tagName.toLowerCase())) {
+        ringEl.classList.add('input-focus');
+        targetSize = Math.max(14, Math.ceil(Math.min(maxDim, 40)));
+      } else {
+        ringEl.classList.remove('input-focus');
+      }
+    } else {
+      targetSize = DEFAULT_SIZE * 1.6;
+      ringEl.classList.remove('input-focus');
+    }
   }
 
-  let x = window.innerWidth / 2;
-  let y = window.innerHeight / 2;
-  let targetX = x;
-  let targetY = y;
-
-  function animate() {
-  x += (targetX - x) * 0.25;
-  y += (targetY - y) * 0.25;
-  console.log("Animating at:", x, y); // debug
-  ring.style.transform = `translate(${x}px, ${y}px) scale(${ring.classList.contains('hover') ? 1.8 : 1})`;
-  requestAnimationFrame(animate);
-}
-
-
-    requestAnimationFrame(animate);
+  function clearActive(){
+    isActive = false;
+    ringEl.classList.remove('active');
+    ringEl.classList.remove('input-focus');
+    targetSize = DEFAULT_SIZE;
   }
-  animate();
 
-  // Update target on mouse move
-  window.addEventListener('mousemove', e => {
-    targetX = e.clientX;
-    targetY = e.clientY;
-  });
+  // attach delegated handlers
+  function attachDelegatedHandlers() {
+    document.addEventListener('pointerover', (ev) => {
+      const t = ev.target;
+      if (t && t.closest && t.closest(interactiveSelector)) {
+        const interactive = t.closest(interactiveSelector);
+        setActive(interactive);
+      }
+    }, { capture: true });
 
-  // Detect hover over interactive elements
-  const isInteractive = el =>
-    el.matches('button, a, [role="button"], input, select, textarea, .cta');
+    document.addEventListener('pointerout', (ev) => {
+      const to = ev.relatedTarget;
+      if (to && to.closest && to.closest(interactiveSelector)) return;
+      clearActive();
+    }, { capture: true });
 
-  let hoverCount = 0;
+    document.addEventListener('focusin', (ev) => {
+      const t = ev.target;
+      if (t && t.closest && t.closest(interactiveSelector)) {
+        setActive(t.closest(interactiveSelector));
+      }
+    });
+    document.addEventListener('focusout', () => clearActive());
+  }
 
-  document.addEventListener('mouseover', e => {
-    if (isInteractive(e.target)) {
-      hoverCount++;
-      ring.classList.add('hover');
-    }
-  });
+  attachDelegatedHandlers();
 
-  document.addEventListener('mouseout', e => {
-    if (isInteractive(e.target)) {
-      hoverCount = Math.max(0, hoverCount - 1);
-      if (hoverCount === 0) ring.classList.remove('hover');
-    }
-  });
-
-  // Keep ring inside viewport on resize
-  window.addEventListener('resize', () => {
-    targetX = Math.min(targetX, window.innerWidth);
-    targetY = Math.min(targetY, window.innerHeight);
-  });
-});
-
+  // expose simple API
+  window.__cursorRing = {
+    el: ringEl,
+    setActiveSize: (px) => { targetSize = Number(px) || DEFAULT_SIZE; },
+    hide: () => ringEl.classList.add('hidden'),
+    show: () => ringEl.classList.remove('hidden')
+  };
+})();
