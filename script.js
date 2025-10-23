@@ -214,4 +214,61 @@ contactForm.addEventListener('submit', async function (e) {
     hide: () => ringEl.classList.add('hidden'),
     show: () => ringEl.classList.remove('hidden')
   };
+
 })();
+
+const container = document.getElementById('dot-layer');
+const numDots = 100;
+const dots = [];
+const maxInfluence = 100; // pixels
+
+let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+document.addEventListener('mousemove', e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+// Create dots and store original positions
+for (let i = 0; i < numDots; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+
+  const x = Math.random() * window.innerWidth;
+  const y = Math.random() * window.innerHeight;
+
+  dot.style.left = `${x}px`;
+  dot.style.top = `${y}px`;
+
+  dot.dataset.origX = x;
+  dot.dataset.origY = y;
+
+  container.appendChild(dot);
+  dots.push(dot);
+}
+
+// Animate dots
+function animateDots() {
+  dots.forEach(dot => {
+    const rect = dot.getBoundingClientRect();
+    const dx = mouse.x - rect.left;
+    const dy = mouse.y - rect.top;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    const origX = parseFloat(dot.dataset.origX);
+    const origY = parseFloat(dot.dataset.origY);
+
+    if (dist < maxInfluence) {
+      const moveX = dx * 0.1;
+      const moveY = dy * 0.1;
+      dot.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      dot.style.opacity = '0.8';
+    } else {
+      dot.style.transform = 'translate(0, 0)';
+      dot.style.opacity = '0.5';
+    }
+  });
+
+  requestAnimationFrame(animateDots);
+}
+
+requestAnimationFrame(animateDots);
