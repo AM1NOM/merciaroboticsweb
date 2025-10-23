@@ -806,8 +806,40 @@ requestAnimationFrame(loop);
   <!-- Cursor ring behaviour -->
   <script defer src="cursor.js"></script>
 
+  <script>
+    const container = document.getElementById('dot-layer');
+const numDots = 150;
+const donateButton = document.querySelector('a[href*="donate"], .btn.primary');
+
+const donateRect = donateButton?.getBoundingClientRect() || { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+for (let i = 0; i < numDots; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+
+  // Position dots in a loose radial pattern around the donate button
+  const angle = Math.random() * 2 * Math.PI;
+  const radius = Math.random() * 200 + 50;
+  const x = donateRect.x + radius * Math.cos(angle);
+  const y = donateRect.y + radius * Math.sin(angle);
+
+  dot.style.left = `${x}px`;
+  dot.style.top = `${y}px`;
+
+  container.appendChild(dot);
+
+  // Animate opacity and glow
+  setInterval(() => {
+    dot.style.opacity = Math.random().toFixed(2);
+    dot.style.transform = `scale(${Math.random() * 0.5 + 0.75})`;
+  }, Math.random() * 2000 + 500);
+}
+
+  </script>
+
 </body> 
 
   
+
 
 </html> 
