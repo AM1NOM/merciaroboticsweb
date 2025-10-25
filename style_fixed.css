@@ -78,7 +78,6 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
   width: 500px;
   height: 200px;
   margin: auto;
-  background-color: white;
   flex: 1 0 auto;
 }
 #player {
@@ -179,3 +178,4 @@ footer ul li {
 footer  a:hover {
   color: white;
 }
+
