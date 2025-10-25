@@ -69,6 +69,34 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 
 .center { text-align: center; }
 
+/* social media */
+.social-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.social-links a {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  filter: invert(100%); /* makes icons white */
+  opacity: 0.85;
+}
+
+.social-links a:hover .social-icon {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+
+/*dino*/
 .game {
   width: 500px;
   height: 200px;
@@ -152,6 +180,7 @@ footer ul li {
 footer  a:hover {
   color: white;
 }
+
 
 
 
