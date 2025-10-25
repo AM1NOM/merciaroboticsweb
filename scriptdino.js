@@ -1,15 +1,24 @@
-//Global Variables
-var player = document.getElementById("player");
-var block = document.getElementById("block");
-var counter = 0;
-var gameStarted = false;
-var collisionEvent = new Event("collision");
-var scoreUpEvent = new Event("scoreUp");
+// Global Variables
+const player = document.getElementById("player");
+const block = document.getElementById("block");
+let counter = 0;
+let frameCount = 0;
+let gameStarted = false;
+const collisionEvent = new Event("collision");
+const scoreUpEvent = new Event("scoreUp");
+
+// Sound effects
+const jumpSound = new Audio("sounds/jump.mp3");
+const hitSound = new Audio("sounds/hit.mp3");
+const pointSound = new Audio("sounds/point.mp3");
+jumpSound.preload = "auto";
+hitSound.preload = "auto";
+pointSound.preload = "auto";
 
 function userInput() {
   if (!gameStarted) {
     gameStarted = true;
-    block.style.animation = "block 1s infinite linear"; // Add animation to the block
+    block.style.animation = "block 1s infinite linear";
     gameLoop();
     jump();
   } else {
@@ -17,11 +26,9 @@ function userInput() {
   }
 }
 
-// GameLoop Function
 function gameLoop() {
-  // Check for collision between player and block
-  var playerRect = player.getBoundingClientRect();
-  var blockRect = block.getBoundingClientRect();
+  const playerRect = player.getBoundingClientRect();
+  const blockRect = block.getBoundingClientRect();
 
   if (
     playerRect.right >= blockRect.left &&
@@ -29,32 +36,23 @@ function gameLoop() {
     playerRect.bottom >= blockRect.top &&
     playerRect.top <= blockRect.bottom
   ) {
-    // Collision occurred, trigger the custom event
     player.dispatchEvent(collisionEvent);
   } else {
-    // No Collision occurred, counter++
-    player.dispatchEvent(scoreUpEvent);
+    frameCount++;
+    if (frameCount % 10 === 0) player.dispatchEvent(scoreUpEvent);
   }
-  if (gameStarted) {
-    requestAnimationFrame(gameLoop); // Continuously call gameLoop
-  }
+
+  if (gameStarted) requestAnimationFrame(gameLoop);
 }
 
-// Jump function
 function jump() {
-  if (player.classList.contains("animate")) {
-    return;
-  }
+  if (player.classList.contains("animate")) return;
   player.classList.add("animate");
-  setTimeout(function () {
-    player.classList.remove("animate");
-  }, 300);
+  jumpSound.currentTime = 0;
+  jumpSound.play();
+  setTimeout(() => player.classList.remove("animate"), 300);
 }
 
-
-
-
-// Function to handle the SpaceBar keydown event
 function handleKeyDown(event) {
   if (event.code === "Space" && event.target === document.body) {
     event.preventDefault();
@@ -62,39 +60,32 @@ function handleKeyDown(event) {
   }
 }
 
-// Event listener for the collision event
-player.addEventListener("collision", function (event) {
-  // Handle the collision event
+player.addEventListener("collision", () => {
   gameStarted = false;
   block.style.animation = "none";
+  hitSound.currentTime = 0;
+  hitSound.play();
+
   counter = 0;
-  document.getElementById("scoreSpan").textContent = Math.floor(counter / 100);
-  document.getElementById("game").style.backgroundColor("red");
-});
-
-//Event listener for scoreUPevent
-player.addEventListener("scoreUp", function (event) {
-  //Handle scoreUp event
-  counter++;
   updateScore();
-});
 
-player.addEventListener("collision", () => {
-  block.style.backgroundColor = "green";
+  const gameContainer = document.querySelector(".game");
+  gameContainer.style.backgroundColor = "red";
+  setTimeout(() => (gameContainer.style.backgroundColor = ""), 200);
 });
 
 player.addEventListener("scoreUp", () => {
-  if (counter % 200 === 0) {
-    block.style.backgroundColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+  counter++;
+  if (counter % 100 === 0) {
+    pointSound.currentTime = 0;
+    pointSound.play();
   }
+  updateScore();
 });
 
-// Function to update the score
 function updateScore() {
-  var scoreSpan = document.getElementById("scoreSpan");
-  scoreSpan.textContent = Math.floor(counter / 100);
+  document.getElementById("scoreSpan").textContent = Math.floor(counter / 100);
 }
 
-// Add event listener to the document object
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("mousedown", userInput);
