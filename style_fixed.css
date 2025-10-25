@@ -1,3 +1,6 @@
+/* ===============================
+   Root & Base Styles
+=============================== */
 :root {
   --electric-blue: #00aaff;
   --charcoal: #23272a;
@@ -7,175 +10,303 @@
   --max-width: 1100px;
   --radius: 12px;
   color-scheme: light;
-  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial;
 }
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 body {
   margin: 0;
   background: var(--charcoal);
-  background-image: radial-gradient(circle at 25% 25%, rgba(0,170,255,0.1) 2px, transparent 2px), radial-gradient(circle at 75% 75%, rgba(0,170,255,0.1) 2px, transparent 2px);
+  background-image: radial-gradient(circle at 25% 25%, rgba(0,170,255,0.1) 2px, transparent 2px),
+                    radial-gradient(circle at 75% 75%, rgba(0,170,255,0.1) 2px, transparent 2px);
   background-size: 20px 20px;
   color: var(--white);
   min-height: 100vh;
   font-family: 'Roboto', system-ui, sans-serif;
-  cursor: none;
+  display: flex;
+  flex-direction: column;
 }
 
-
-
-
+/* ===============================
+   Layout & Components
+=============================== */
 .site { max-width: var(--max-width); margin: 0 auto; padding: 24px; }
-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; }
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
-.logo { width: 56px; height: 56px; object-fit: contain; border-radius: 10px; background: rgba(0,14,26,0.1); box-shadow: 0 6px 18px rgba(200,16,40,.12); }
-nav a { margin-left: 14px; text-decoration: none; color: var(--white); font-weight: 500; }
-nav a.button { background: var(--electric-blue); color: var(--white); padding: 8px 12px; border-radius: 8px; }
-.hero { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: center; padding: 28px; border-radius: 16px; box-shadow: 0 6px 24px rgba(0,0,0,.06); background: linear-gradient(90deg, #23272a 0%, #23272a 100%); margin-bottom: 18px; }
-.hero-inner { display: flex; flex-direction: column; gap: 12px; }
-h1 { margin: 0; font-size: clamp(22px,3.2vw,34px); color: var(--white); }
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(0,14,26,0.1);
+  box-shadow: 0 6px 18px rgba(200,16,40,.12);
+}
+
+nav a {
+  margin-left: 14px;
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+}
+
+nav a.button {
+  background: var(--electric-blue);
+  color: var(--white);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+  background: linear-gradient(90deg, #23272a 0%, #23272a 100%);
+  margin-bottom: 18px;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(22px, 3.2vw, 34px);
+  color: var(--white);
+}
+
 p.lead { margin: 0; color: var(--muted); }
+
 .hero-cta { display: flex; gap: 8px; }
-.btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 0; font-weight: 600; text-decoration: none; cursor: pointer; }
+
+.btn {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .btn.primary { background: var(--electric-blue); color: var(--white); }
 .btn.ghost { background: transparent; border: 1px solid var(--electric-blue); color: var(--electric-blue); }
-section { padding: 18px 0; border-top: 1px solid #f3f3f3; }
+
+section {
+  padding: 18px 0;
+  border-top: 1px solid #f3f3f3;
+}
+
 h2 { margin: 0 0 12px 0; color: var(--white); }
-.grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-.card { background: var(--charcoal); padding: 14px; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,.04); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+}
+
+.card {
+  background: var(--charcoal);
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.04);
+}
+
 .member { display: flex; gap: 12px; align-items: center; }
-.avatar { width: 68px; height: 68px; border-radius: 10px; background: var(--charcoal); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--muted); }
-.tiers { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
-.tier { padding: 14px; border-radius: 10px; text-align: center; }
+
+.avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 10px;
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+}
+
+.tier {
+  padding: 14px;
+  border-radius: 10px;
+  text-align: center;
+}
+
 .tier h3 { margin: 8px 0; }
-.sponsor-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 12px; align-items: center; }
-.sponsor-item { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 10px; background: var(--charcoal); border: 1px dashed var(--electric-blue); min-height: 80px; }
+
+.sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap: 12px;
+  align-items: center;
+}
+
+.sponsor-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--charcoal);
+  border: 1px dashed var(--electric-blue);
+  min-height: 80px;
+}
+
 .sponsor-item img { max-width: 100%; max-height: 60px; object-fit: contain; }
-form input, form textarea, form select { width: 100%; padding: 8px; margin: 6px 0; border-radius: 8px; border: 1px solid #e6e6e6; }
+
+form input, form textarea, form select {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+}
+
 form label { font-size: 13px; color: var(--muted); }
+
 .small { font-size: 13px; color: var(--muted); }
-footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
-@media (max-width:900px) {
-  .grid { grid-template-columns: repeat(2,1fr); }
-  .hero { grid-template-columns: 1fr; }
-  .tiers { grid-template-columns: repeat(2,1fr); }
-}
-@media (max-width:600px) {
-  .grid { grid-template-columns: 1fr; }
-  nav { display: none; }
-  header { flex-wrap: wrap; }
-  .tiers { grid-template-columns: 1fr; }
-}
-.muted { color: var(--muted); }
 
-.center { text-align: center; }
-
-* {
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
+footer {
+  padding: 18px 0;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
 }
+
+/* ===============================
+   Dino Game Styles
+=============================== */
 .game {
   width: 500px;
   height: 200px;
-  margin: auto;
-  flex: 1 0 auto;
+  margin: 20px auto;
+  background-color: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
 }
+
 #player {
   width: 50px;
   height: 50px;
   background-image: url("robot-preview.png");
   background-size: cover;
   background-position: center;
-  position: relative;
-  top: 150px;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
 }
+
 .animate {
   animation: jump 0.3s linear;
 }
+
 @keyframes jump {
-  0% {
-    top: 150px;
-  }
-  30% {
-    top: 100px;
-  }
-  70% {
-    top: 100px;
-  }
-  100% {
-    top: 150px;
-  }
+  0% { bottom: 0; }
+  30% { bottom: 50px; }
+  70% { bottom: 50px; }
+  100% { bottom: 0; }
 }
 
 #block {
   background-color: green;
   width: 20px;
   height: 20px;
-  position: relative;
-  top: 130px;
-  left: 500px;
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+  animation: none;
 }
+
 @keyframes block {
-  0% {
-    left: 500px;
-  }
-  100% {
-    left: -20px;
-  }
+  0% { right: -20px; }
+  100% { right: 520px; }
 }
+
 #score {
-  color: black;
+  color: var(--white);
   text-align: center;
   font-style: italic;
   font-family: "Montserrat", Arial, sans-serif;
-  font-size: 30px;
+  font-size: 24px;
+  margin-top: 10px;
 }
 
-body {
+/* ===============================
+   Social Links (GitHub + Instagram)
+=============================== */
+.social-links {
   display: flex;
-  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+  align-items: center;
 }
 
-h1 {
-  color: black;
-  text-align: center;
-  font-style: italic;
-  font-family: "Montserrat", Arial, sans-serif;
-  font-size: 50px;
-}
-
-footer {
-  background-color: #cccccc;
-  padding: 20px;
-  text-align: center;
-  font-style: italic;
+.social-links a {
   text-decoration: none;
-  font-family: "Montserrat", Arial, sans-serif;
-}
-
-footer a {
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    transition: color 0.3s ease;
-
-  }
-
-footer ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-}
-
-footer ul li {
   display: inline-block;
-  margin: 0 10px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-footer  a:hover {
-  color: white;
+.social-icon {
+  width: 32px;
+  height: 32px;
+  filter: invert(100%);
+  opacity: 0.85;
 }
 
+.social-links a:hover .social-icon {
+  transform: scale(1.1);
+  opacity: 1;
+}
 
+/* ===============================
+   Responsive Adjustments
+=============================== */
+@media (max-width:900px) {
+  .grid { grid-template-columns: repeat(2,1fr); }
+  .hero { grid-template-columns: 1fr; }
+  .tiers { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width:600px) {
+  .grid { grid-template-columns: 1fr; }
+  nav { display: none; }
+  header { flex-wrap: wrap; }
+  .tiers { grid-template-columns: 1fr; }
+  .game { width: 90%; }
+}
+
+.muted { color: var(--muted); }
+.center { text-align: center; }
