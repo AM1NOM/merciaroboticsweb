@@ -57,6 +57,7 @@ function jump() {
 // Function to handle the SpaceBar keydown event
 function handleKeyDown(event) {
   if (event.code === "Space" && event.target === document.body) {
+    event.preventDefault();
     userInput();
   }
 }
@@ -78,6 +79,15 @@ player.addEventListener("scoreUp", function (event) {
   updateScore();
 });
 
+player.addEventListener("collision", () => {
+  block.style.backgroundColor = "green";
+});
+
+player.addEventListener("scoreUp", () => {
+  if (counter % 200 === 0) {
+    block.style.backgroundColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+  }
+});
 
 // Function to update the score
 function updateScore() {
