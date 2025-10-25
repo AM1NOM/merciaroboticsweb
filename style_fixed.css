@@ -69,11 +69,12 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 .mercia-title {
   text-align: center;
   font-family: var(--arcade-font);
-  font-size: 14px;
+  font-size: 30px;
   color: var(--electric-blue);
   margin-top: 20px;
   letter-spacing: 2px;
   text-shadow: 0 0 8px rgba(0, 170, 255, 0.7);
+  line-height: 1.4;
 }
 .muted { color: var(--muted); }
 
@@ -113,7 +114,7 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
   margin: 40px auto;
   background-color: white;
   flex: 1 0 auto;
-  border-radius: 20px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   position: relative;
@@ -194,4 +195,5 @@ footer ul li {
 footer  a:hover {
   color: white;
 }
+
 
