@@ -69,6 +69,11 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
 
 .center { text-align: center; }
 
+* {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
 .game {
   width: 500px;
   height: 200px;
@@ -127,6 +132,19 @@ footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
   font-size: 30px;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #cccccc;
+}
+
+h1 {
+  color: black;
+  text-align: center;
+  font-style: italic;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 50px;
+}
 
 footer {
   background-color: #cccccc;
@@ -161,8 +179,3 @@ footer ul li {
 footer  a:hover {
   color: white;
 }
-
-
-
-
-
