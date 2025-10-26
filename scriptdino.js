@@ -54,7 +54,7 @@ function gameLoop() {
     player.dispatchEvent(collisionEvent);
   } else {
     frameCount++;
-    if (frameCount % 1 === 0) player.dispatchEvent(scoreUpEvent);
+    if (frameCount % 10 === 0) player.dispatchEvent(scoreUpEvent);
   }
 
   if (gameStarted) requestAnimationFrame(gameLoop);
