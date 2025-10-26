@@ -38,12 +38,15 @@
 }
 
 #block {
-  background-color: green;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  top: 130px;
-  left: 500px;
+  width: 60px;
+  height: 40px;
+  background-image: url("images/scrap_pile.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  animation: block 1s infinite linear;
 }
 @keyframes block {
   0% {
