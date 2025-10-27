@@ -107,7 +107,7 @@ player.addEventListener("collision", () => {
 // Score event
 player.addEventListener("scoreUp", () => {
   counter++;
-  if (counter % 100 === 0) {
+  if (counter % 6 === 0) {
     // 🔊 Play point sound every milestone
     pointSound.currentTime = 0;
     pointSound.play();

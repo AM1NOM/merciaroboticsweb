@@ -23,7 +23,6 @@
   </style>
 </head>
 <body>
-  <div id="dot-layer">
     <div id="cursor-ring" aria-hidden="true"></div>
 
     <div class="site">
@@ -262,28 +261,6 @@
     <script src="script.js"></script>
     <script defer src="cursor.js"></script>
 
-    <script>
-      // Set copyright year
-      document.getElementById('year').textContent = new Date().getFullYear();
-
-      // Dot-layer simple particle behavior (non-blocking)
-      (function(){
-        const container = document.getElementById('dot-layer');
-        const numDots = 150;
-        for(let i=0;i<numDots;i++){
-          const dot = document.createElement('div');
-          dot.className = 'dot';
-          dot.style.left = Math.random() * window.innerWidth + 'px';
-          dot.style.top  = Math.random() * window.innerHeight + 'px';
-          container.appendChild(dot);
-          setInterval(()=> {
-            dot.style.opacity = (Math.random()).toFixed(2);
-            dot.style.transform = `scale(${Math.random()*0.5+0.5})`;
-          }, Math.random()*2000 + 500);
-        }
-      })();
-    </script>
-  </div> <!-- /#dot-layer -->
 </body>
 </html>
 
