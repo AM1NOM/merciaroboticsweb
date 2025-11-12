@@ -1,1 +1,1 @@
-- [x] Replace all <div class="member"> to <li class="member"> and </div> to </li> in jeremiah.html
+- [x] Reverse changes: Replace all <li class="member"> to <div class="member"> and </li> to </div> in jeremiah.html
