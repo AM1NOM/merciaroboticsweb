@@ -119,5 +119,5 @@ player.addEventListener("scoreUp", () => {
 // 🧮 Score Update
 // ===============================
 function updateScore() {
-  document.getElementById("scoreSpan").textContent = Math.floor(counter/6);
+  document.getElementById("scoreSpan").textContent = Math.floor((counter+0.1)/6);
 }
