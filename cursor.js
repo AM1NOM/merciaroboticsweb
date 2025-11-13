@@ -1,5 +1,5 @@
 (function(){
-  const interactiveSelector = 'a, button, input, textarea, select, summary, [role="button"], [data-interactive], .interactive, .member';
+  const interactiveSelector = 'a, button, input, textarea, select, summary, [role="button"], [data-interactive], .interactive, .member, .description';
   const LERP = 0.35;
 
   // create ring element immediately
