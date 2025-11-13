@@ -38,7 +38,8 @@
 }
 
 #block {
-  transform: scale(2);
+  width: 40px;
+  height: 40px;
   background-image: url("assets/obstacle.png");
   background-size: contain;
   background-repeat: no-repeat;
