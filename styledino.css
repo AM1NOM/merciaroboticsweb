@@ -40,7 +40,7 @@
 #block {
   width: 40px;
   height: 40px;
-  background-image: url("obstacle.png");
+  background-image: url("assets/obstacle.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
