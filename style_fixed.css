@@ -1,212 +1,204 @@
-:root{
-  --page-bg:#f6f8fa;
-  --header-bg:#0d1117;
-  --muted:#57606a;
-  --accent:#238636; /* green used for CTA like GitHub */
-  --card-border:#e6edf3;
+:root {
+  --electric-blue: #00aaff;
+  --charcoal: #23272a;
+  --white: #ffffff;
+  --dark: #23272a;
+  --muted: #b0b0b0;
   --max-width: 1100px;
-  --radius:12px;
-  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --radius: 12px;
+  --arcade-font: 'Press Start 2P', monospace;
+  color-scheme: light;
+  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:var(--sans);background:var(--page-bg);color:#0d1117}
-
-/* Header */
-header{display:flex;align-items:center;justify-content:space-between;background:transparent;padding:18px 24px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
-.logo{width:42px;height:42px;object-fit:contain;border-radius:6px}
-nav{display:flex;gap:12px;align-items:center}
-nav a{color:#222;text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px}
-nav a.button{background:var(--accent);color:white}
-nav a:hover{background:rgba(13,17,23,0.05)}
-
-/* Page container */
-.site{max-width:var(--max-width);margin:24px auto;padding:0 24px}
-
-/* Hero */
-.hero{background:white;border-radius:12px;padding:48px;box-shadow:0 8px 20px rgba(13,17,23,0.06);margin-bottom:24px}
-.mercia-title{font-size:48px;margin:0 0 12px;letter-spacing:-1px;color:#0d1117}
-.lead{color:var(--muted);line-height:1.6;margin:0 0 18px}
-.hero-cta{display:flex;gap:12px}
-.btn{display:inline-block;padding:10px 16px;border-radius:8px;border:1px solid transparent;font-weight:700;text-decoration:none}
-.btn.primary{background:var(--accent);color:#fff}
-.btn.ghost{background:transparent;color:#0d1117;border:1px solid #e6edf3}
-
-/* Sections and cards */
-section{margin-bottom:20px}
-h2{margin:0 0 12px;font-size:20px;color:#0d1117}
-.card{background:white;border:1px solid var(--card-border);padding:16px;border-radius:10px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.member{display:flex;gap:12px;align-items:center}
-.avatar{width:68px;height:68px;border-radius:8px;background:#f1f3f5;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted)}
-.small{font-size:13px;color:var(--muted)}
-.muted{color:var(--muted)}
-
-/* Sponsor area */
-.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.tier{padding:12px;border-radius:8px;text-align:left}
-.sponsor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-.sponsor-item{display:flex;align-items:center;justify-content:center;padding:12px;border-radius:8px;background:#fff;border:1px solid var(--card-border);min-height:72px}
-.sponsor-item img{max-width:100%;max-height:60px;object-fit:contain}
-
-/* Contact & social */
-.social-links{display:flex;gap:12px;align-items:center}
-.social-icon{width:28px;height:28px;filter:grayscale(100%) brightness(0.2)}
-.social-icon:hover{filter:none}
-
-/* Dino game: keep visible but muted style to match page */
-.game{width:100%;max-width:640px;height:240px;margin:28px auto;background:#f6f8fa;border-radius:10px;border:1px solid var(--card-border);position:relative;overflow:hidden}
-#player{width:56px;height:56px;background-image:url('robot-preview.png');background-size:cover;background-position:center;position:absolute;left:40px;bottom:24px}
-#block{width:28px;height:28px;background-image:url('assets/obstacle.png');background-size:contain;background-repeat:no-repeat;position:absolute;right:-40px;bottom:24px}
-#score{color:#444;text-align:center;font-size:18px;margin-top:6px}
-
-/* Footer */
-footer{margin-top:28px;text-align:center;color:var(--muted)}
-
-/* Responsive */
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.tiers{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.grid{grid-template-columns:1fr}nav{display:none}.mercia-title{font-size:34px;padding:0 6px}.hero{padding:28px}}
-
-
-/* robots.css (small additions / overrides for game & arcade accents) */
-:root{--accent-red:#c8102e}
-.mercia-title{color:#0d1117}
-/* arcade heading preserved but toned down to fit GitHub look */
-.mercia-title.arcade{font-family:'Press Start 2P',monospace;font-size:28px;letter-spacing:1px}
-
-/* keep avatar initials style */
-.avatar{font-size:20px}
-
-/* cursor.css — keep basic ring but muted to match clean layout */
-#cursor-ring{position:fixed;left:0;top:0;width:36px;height:36px;border-radius:50%;pointer-events:none;border:2px solid rgba(13,17,23,0.12);transform:translate(-50%,-50%);mix-blend-mode:normal;transition:transform 120ms ease,opacity 120ms ease;opacity:0}
-
-
-/* --- script.js (unchanged site behavior) --- */
-document.getElementById('year').textContent = new Date().getFullYear();
-
-const sponsorForm = document.getElementById('sponsorForm');
-const sponsorGrid = document.getElementById('sponsorGrid');
-const smsg = document.getElementById('smsg');
-
-const contactForm = document.getElementById('contactForm');
-const cmsg = document.getElementById('cmsg');
-
-function createSponsorElement(name, website, imgSrc) {
-  const div = document.createElement('div');
-  div.className = 'sponsor-item';
-  if (imgSrc) {
-    const a = document.createElement('a');
-    a.href = website || '#';
-    a.target = '_blank';
-    const img = document.createElement('img');
-    img.alt = name;
-    img.src = imgSrc;
-    a.appendChild(img);
-    div.appendChild(a);
-  } else {
-    div.textContent = name;
-  }
-  return div;
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--charcoal);
+  background-image: radial-gradient(circle at 25% 25%, rgba(0,170,255,0.1) 2px, transparent 2px), radial-gradient(circle at 75% 75%, rgba(0,170,255,0.1) 2px, transparent 2px);
+  background-size: 20px 20px;
+  color: var(--white);
+  min-height: 100vh;
+  font-family: 'Roboto', system-ui, sans-serif;
+  cursor: none;
 }
 
-function loadSponsors() {
-  try {
-    const raw = localStorage.getItem('mercia_sponsors');
-    if (!raw) return;
-    const arr = JSON.parse(raw);
-    arr.forEach(s =>
-      sponsorGrid.appendChild(createSponsorElement(s.name, s.website, s.img))
-    );
-  } catch (e) {
-    console.warn(e);
+
+
+
+.site { max-width: var(--max-width); margin: 0 auto; padding: 24px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
+.logo { width: 56px; height: 56px; object-fit: contain; border-radius: 10px; background: rgba(0,14,26,0.1); box-shadow: 0 6px 18px rgba(200,16,40,.12); }
+nav a { margin-left: 14px; text-decoration: none; color: var(--white); font-weight: 500; }
+nav a.button { background: var(--electric-blue); color: var(--white); padding: 8px 12px; border-radius: 8px; }
+.hero { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: center; padding: 28px; border-radius: 16px; box-shadow: 0 6px 24px rgba(0,0,0,.06); background: linear-gradient(90deg, #23272a 0%, #23272a 100%); margin-bottom: 18px; }
+.hero-inner { display: flex; flex-direction: column; gap: 12px; }
+h1 { margin: 0; font-size: clamp(22px,3.2vw,34px); color: var(--white); }
+p.lead { margin: 0; color: var(--muted); }
+.hero-cta { display: flex; gap: 8px; }
+.btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 0; font-weight: 600; text-decoration: none; cursor: pointer; }
+.btn.primary { background: var(--electric-blue); color: var(--white); }
+.btn.ghost { background: transparent; border: 1px solid var(--electric-blue); color: var(--electric-blue); }
+section { padding: 18px 0; border-top: 1px solid #f3f3f3; }
+h2 { margin: 0 0 12px 0; color: var(--white); }
+.grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.card { background: var(--charcoal); padding: 14px; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,.04); }
+.member { display: flex; gap: 12px; align-items: center; }
+.avatar { width: 68px; height: 68px; border-radius: 10px; background: var(--charcoal); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--muted); }
+.tiers { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+.tier { padding: 14px; border-radius: 10px; text-align: center; }
+.tier h3 { margin: 8px 0; }
+.sponsor-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 12px; align-items: center; }
+.sponsor-item { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 10px; background: var(--charcoal); border: 1px dashed var(--electric-blue); min-height: 80px; }
+.sponsor-item img { max-width: 100%; max-height: 60px; object-fit: contain; }
+form input, form textarea, form select { width: 100%; padding: 8px; margin: 6px 0; border-radius: 8px; border: 1px solid #e6e6e6; }
+form label { font-size: 13px; color: var(--muted); }
+.small { font-size: 13px; color: var(--muted); }
+footer { padding: 18px 0; color: var(--muted); font-size: 14px; }
+@media (max-width:900px) {
+  .grid { grid-template-columns: repeat(2,1fr); }
+  .hero { grid-template-columns: 1fr; }
+  .tiers { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width:600px) {
+  .grid { grid-template-columns: 1fr; }
+  nav { display: none; }
+  header { flex-wrap: wrap; }
+  .tiers { grid-template-columns: 1fr; }
+}
+.mercia-title {
+  text-align: center;
+  font-family: var(--arcade-font);
+  font-size: 50px;
+  color: var(--electric-blue);
+  margin-top: 20px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px rgba(0, 170, 255, 0.7);
+  line-height: 1.4;
+}
+.muted { color: var(--muted); }
+
+.center { text-align: center; }
+
+/* social media */
+.social-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.social-links a {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  filter: invert(100%); /* makes icons white */
+  opacity: 0.85;
+}
+
+.social-links a:hover .social-icon {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+
+/*dino*/
+.game {
+  width: 500px;
+  height: 200px;
+  margin: 40px auto;
+  background-color: black;
+  flex: 1 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+#player {
+  width: 50px;
+  height: 50px;
+  background-image: url("robot-preview.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  top: 150px;
+}
+.animate {
+  animation: jump 0.3s linear;
+}
+@keyframes jump {
+  0% {
+    top: 150px;
+  }
+  30% {
+    top: 100px;
+  }
+  70% {
+    top: 100px;
+  }
+  100% {
+    top: 150px;
   }
 }
-loadSponsors();
 
-sponsorForm && sponsorForm.addEventListener('submit', async function (e) {
-  e.preventDefault();
-  smsg.textContent = '';
-  const name = document.getElementById('sname')?.value.trim();
-  const tier = document.getElementById('stier')?.value;
-  const website = document.getElementById('swebsite')?.value.trim();
-  const contact = document.getElementById('scontact')?.value.trim();
-  const file = document.getElementById('slogo')?.files?.[0];
-  if (!name) {
-    smsg.textContent = 'Please enter a sponsor name.';
-    return;
+#block {
+  background-image: url("assets/obstacle.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 130px;
+  left: 500px;
+}
+@keyframes block {
+  0% {
+    left: 500px;
   }
-  if (contact && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) {
-    smsg.textContent = 'Please enter a valid contact email.';
-    return;
+  100% {
+    left: -20px;
   }
+}
+#score {
+  color: black;
+  text-align: center;
+  font-style: italic;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 30px;
+}
 
-  // For this demo we save sponsor locally — replace with real backend as needed
-  const sponsorObj = { name, tier, website, contact, img: null };
 
-  function finalize(imgData) {
-    sponsorObj.img = imgData;
-    sponsorGrid.appendChild(createSponsorElement(name, website, imgData));
-    smsg.textContent = 'Thanks — sponsorship noted locally. We will contact you to finalise details.';
-    try {
-      const existing = JSON.parse(localStorage.getItem('mercia_sponsors') || '[]');
-      existing.push(sponsorObj);
-      localStorage.setItem('mercia_sponsors', JSON.stringify(existing));
-    } catch (e) { console.warn(e) }
-    sponsorForm.reset();
-  }
+footer a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease;
 
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => finalize(reader.result);
-    reader.readAsDataURL(file);
-  } else {
-    finalize(null);
-  }
-});
-
-contactForm && contactForm.addEventListener('submit', async function (e) {
-  e.preventDefault();
-  cmsg.textContent = '';
-  const name = document.getElementById('name')?.value.trim();
-  const email = document.getElementById('email')?.value.trim();
-  const message = document.getElementById('message')?.value.trim();
-  if (!name || !email || !message) {
-    cmsg.textContent = 'Please fill in all fields.';
-    return;
-  }
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    cmsg.textContent = 'Please enter a valid email.';
-    return;
   }
 
-  // fallback: open mailto so the user can contact you without a backend
-  const to = 'merciarobotics@gmail.com';
-  const subject = encodeURIComponent('Mercia Robotics — Message from ' + name);
-  const body = encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')');
-  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  cmsg.textContent = 'Your email client should open. If it does not, please email merciarobotics@gmail.com directly.';
-  contactForm.reset();
-});
+footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 
-// small UX for member toggles
-document.querySelectorAll('.member').forEach(member => {
-  member.addEventListener('click', () => {
-    const desc = member.querySelector('.description');
-    if(!desc) return;
-    desc.style.display = desc.style.display === 'block' ? 'none' : 'block';
-  });
-});
+}
 
-/* cursor ring behaviour (simple) */
-(function(){
-  const ring = document.getElementById('cursor-ring');
-  if(!ring) return;
-  document.addEventListener('mousemove', e => {
-    ring.style.left = e.clientX + 'px';
-    ring.style.top = e.clientY + 'px';
-    ring.style.opacity = 1;
-    clearTimeout(ring._hide);
-    ring._hide = setTimeout(()=> ring.style.opacity = 0, 800);
-  });
-})();
+footer ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+footer  a:hover {
+  color: white;
+}
+
+
+
+
