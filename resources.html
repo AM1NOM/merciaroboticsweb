@@ -9,6 +9,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
+
+    <style>
+        /* Small page-specific overrides to center resources and style download button */
+        .resources-list{ max-width:1000px; margin:40px auto; padding:0 20px; }
+        .resource-item{ display:flex; flex-direction:column; align-items:center; gap:16px; padding:20px; margin:20px 0; }
+        .resource-thumb{ width:160px; height:160px; object-fit:cover; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+        .resource-meta{ text-align:center; max-width:700px; }
+        .download-btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.08); color:inherit; border-radius:8px; text-decoration:none; font-weight:700; }
+        .download-btn svg{ width:18px; height:18px; }
+        .hero.small-hero{ padding:36px 20px; }
+    </style>
 </head>
 <body>
     <div class="neural-background"></div>
@@ -48,51 +59,65 @@
         </section>
 
         <section class="resources-list" id="resources">
-            <h2 class="section-title">Available files</h2>
 
             <div class="resource-item glass">
-                <a class="download-btn" href="files/team-manual.pdf" download aria-label="Download Team Manual">⬇️</a>
                 <img class="resource-thumb" src="images/accu.png" alt="Team Manual thumbnail">
                 <div class="resource-meta">
                     <h3>Team Manual</h3>
                     <p>A complete introduction to Mercia Robotics: roles, processes, safety rules and meeting schedules. Ideal for new members and mentors.</p>
                 </div>
+                <a class="download-btn" href="files/team-manual.pdf" download aria-label="Download Team Manual">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Download
+                </a>
             </div>
 
             <div class="resource-item glass">
-                <a class="download-btn" href="files/robot-build-guide.pdf" download aria-label="Download Robot Build Guide">⬇️</a>
                 <img class="resource-thumb" src="images/accu.png" alt="Build Guide thumbnail">
                 <div class="resource-meta">
                     <h3>Robot Build Guide</h3>
                     <p>Step-by-step assembly guide for our standard robot chassis, with CAD references and suggested part lists.</p>
                 </div>
+                <a class="download-btn" href="files/robot-build-guide.pdf" download aria-label="Download Robot Build Guide">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Download
+                </a>
             </div>
 
             <div class="resource-item glass">
-                <a class="download-btn" href="files/wiring-diagram.png" download aria-label="Download Wiring Diagram">⬇️</a>
                 <img class="resource-thumb" src="images/accu.png" alt="Wiring Diagram thumbnail">
                 <div class="resource-meta">
                     <h3>Wiring Diagram</h3>
                     <p>Electrical wiring diagram showing motor controllers, battery routing and sensor connections used on our competition robot.</p>
                 </div>
+                <a class="download-btn" href="files/wiring-diagram.png" download aria-label="Download Wiring Diagram">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Download
+                </a>
             </div>
 
             <div class="resource-item glass">
-                <a class="download-btn" href="files/code.zip" download aria-label="Download Robot Code">⬇️</a>
                 <img class="resource-thumb" src="images/accu.png" alt="Code archive thumbnail">
                 <div class="resource-meta">
                     <h3>Robot Code (archive)</h3>
                     <p>Latest stable release of our robot code including autonomous routines, teleop support and utility scripts.</p>
                 </div>
+                <a class="download-btn" href="files/code.zip" download aria-label="Download Robot Code">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Download
+                </a>
             </div>
 
             <div class="resource-item glass">
-                <a class="download-btn" href="files/sponsor-packet.pdf" download aria-label="Download Sponsor Packet">⬇️</a>
                 <img class="resource-thumb" src="images/accu.png" alt="Sponsor packet thumbnail">
                 <div class="resource-meta">
                     <h3>Sponsor Packet</h3>
                     <p>Information for potential sponsors: tiers, benefits, branding opportunities and contact details.</p>
                 </div>
+                <a class="download-btn" href="files/sponsor-packet.pdf" download aria-label="Download Sponsor Packet">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Download
+                </a>
             </div>
 
         </section>
