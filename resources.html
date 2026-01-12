@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="/images/logom.png" />
+  <title>Mercia Robotics — Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="neural-background"></div>
+  <div class="geometric-shapes">
+    <div class="shape"></div><div class="shape"></div><div class="shape"></div><div class="shape"></div>
+  </div>
+  <div class="neural-lines">
+    <div class="neural-line"></div><div class="neural-line"></div><div class="neural-line"></div>
+  </div>
+
+  <header class="glass">
+    <nav>
+      <a href="index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mercia Robotics logo">
+          <image href="images/logos.png" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid slice" />
+        </svg>
+        <span class="logo-text">MERCIA ROBOTICS</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="resources.html" class="active">Resources</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a></li>
+      </ul>
+
+      <div class="mobile-menu-toggle">
+        <div class="hamburger-line"></div><div class="hamburger-line"></div><div class="hamburger-line"></div>
+      </div>
+    </nav>
+    <div class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="team.html">Team</a>
+      <a href="resources.html">Resources</a>
+      <a href="#contact">Contact</a>
+      <a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a>
+    </div>
+  </header>
+
+  <main class="glass content-panel" id="resources-page" style="padding:32px; max-width:980px; margin:96px auto;">
+    <h2 class="page-title">Resources</h2>
+    <p class="lead">Downloadable files for the team: guides, templates and handouts.</p>
+
+    <!-- Container populated by script.js -->
+    <div id="resourcesContainer" class="resources-list" aria-live="polite"></div>
+
+    <!-- Static fallback for users without JavaScript -->
+    <noscript>
+      <ul class="resources-list">
+        <li>
+          <a class="download-btn" href="resources/Team_Guide.pdf" download>Download</a>
+          <span class="resource-name">Team Guide</span>
+        </li>
+        <li>
+          <a class="download-btn" href="resources/CAD_Tips.pdf" download>Download</a>
+          <span class="resource-name">CAD Tips</span>
+        </li>
+        <li>
+          <a class="download-btn" href="resources/Code_Template.zip" download>Download</a>
+          <span class="resource-name">Code Template</span>
+        </li>
+      </ul>
+    </noscript>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
