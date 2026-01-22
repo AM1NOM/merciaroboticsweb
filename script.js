@@ -162,22 +162,59 @@
             observer.observe(el);
         });
 
-        // Form submission effect
-        document.querySelector('.submit-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            this.innerHTML = 'TRANSMITTING...';
-            this.style.background = 'linear-gradient(45deg, #8000ff, #00ffff)';
-            
-            setTimeout(() => {
-                this.innerHTML = 'TRANSMISSION COMPLETE';
-                this.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
-                
-                setTimeout(() => {
-                    this.innerHTML = 'TRANSMIT TO MATRIX';
-                    this.style.background = 'linear-gradient(45deg, #00ffff, #ff0080)';
-                }, 2000);
-            }, 1500);
+        // Set year in footer when DOM is ready
+        document.addEventListener("DOMContentLoaded", function() {
+            const yearEl = document.getElementById("year");
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
         });
+
+        // Form submission effect — after animation navigate to donate link (if present)
+        (function() {
+          const submitBtn = document.querySelector('.submit-btn');
+          if (!submitBtn) return;
+
+          submitBtn.addEventListener('click', function(e) {
+              e.preventDefault();
+              const btn = this;
+              btn.innerHTML = 'TRANSMITTING...';
+              btn.style.background = 'linear-gradient(45deg, #8000ff, #00ffff)';
+              
+              setTimeout(() => {
+                  btn.innerHTML = 'TRANSMISSION COMPLETE';
+                  btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                  
+                  setTimeout(() => {
+                      btn.innerHTML = 'TRANSMIT TO MATRIX';
+                      btn.style.background = 'linear-gradient(45deg, #00ffff, #ff0080)';
+
+                      // find link to navigate to:
+                      // prefer nearest ancestor <a>, fall back to href on the button or data-href
+                      const anchor = btn.closest('a');
+                      let href = null;
+                      let target = null;
+                      if (anchor && anchor.getAttribute('href')) {
+                          href = anchor.getAttribute('href');
+                          target = anchor.getAttribute('target');
+                      } else {
+                          href = btn.getAttribute('href') || btn.dataset.href || null;
+                      }
+
+                      if (href) {
+                          // small delay to allow the final state to be visible
+                          setTimeout(() => {
+                              if (target === '_blank') {
+                                  window.open(href, '_blank', 'noopener');
+                              } else {
+                                  window.location.href = href;
+                              }
+                          }, 80);
+                      }
+                  }, 2000);
+              }, 1500);
+          });
+        })();
         
 // Seamless Infinite Sponsor Scroller
 
@@ -241,36 +278,4 @@
         el.addEventListener('touchstart', pause, {passive:true});
         el.addEventListener('touchend', resume, {passive:true});
         });
-
-
-      let rTO;
-      window.addEventListener(
-        "resize",
-        () => {
-          clearTimeout(rTO);
-          rTO = setTimeout(() => {
-            const originals = originalChildren.map((n) =>
-              n.cloneNode(true)
-            );
-            track.innerHTML = "";
-            originals.forEach((n) => track.appendChild(n));
-            initSponsorsMarquee();
-          }, 250);
-        },
-        { passive: true }
-      );
-    });
-  }
-
-  if (
-    document.readyState === "complete" ||
-    document.readyState === "interactive"
-  ) {
-    setTimeout(initSponsorsMarquee, 30);
-  } else {
-    window.addEventListener("load", initSponsorsMarquee);
-  }
-})();
-
-
 
