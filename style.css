@@ -734,7 +734,7 @@
      background-image: url('images/2.jpg');
 }
  .feature-row:nth-child(3) .feature-visual {
-     background-image: url('');
+     background-image: url('https://images.gofundme.com/3DJH0W3F0ji0E1eigJWpki9ma7I=/720x405/https://d2g8igdw686xgo.cloudfront.net/94802505_176025591631302_r.png');
 }
 .feature-row:nth-child(4) .feature-visual {
      background-image: url('');
@@ -1370,3 +1370,4 @@
 .sponsor-viewport:focus-within .sponsor-track {
   animation-play-state: paused !important;
 }
+
