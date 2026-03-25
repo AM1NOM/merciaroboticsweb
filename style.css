@@ -16,6 +16,13 @@
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
 }
+
+.center-everything {
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+}
+
 /* Enhanced background colors - Purple/Pink/Green palette */
  .neural-background {
      position: fixed;
