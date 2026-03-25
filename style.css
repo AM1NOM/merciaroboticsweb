@@ -1371,3 +1371,208 @@
   animation-play-state: paused !important;
 }
 
+/* Mobile Responsive - Add this at the end of style.css */
+
+@media (max-width: 768px) {
+    /* Header adjustments */
+    header {
+        top: 10px;
+        width: 98%;
+        padding: 12px 20px;
+        border-radius: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .logo {
+        font-size: 18px;
+        gap: 6px;
+    }
+
+    :root { --logo-size: 32px; }
+
+    .nav-links {
+        display: none; /* Hide on mobile by default */
+        gap: 8px;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+
+    /* Hero section */
+    .hero-content {
+        padding: 60px 20px;
+        margin-top: 100px;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+    }
+
+    .hero-description p {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        gap: 12px;
+    }
+
+    .cta-button {
+        padding: 12px 24px;
+        font-size: 0.85rem;
+    }
+
+    /* Features */
+    .features {
+        padding: 100px 0;
+    }
+
+    .feature-row {
+        flex-direction: column !important;
+        gap: 30px;
+    }
+
+    .feature-content {
+        padding: 30px;
+        transform: skew(0deg);
+    }
+
+    .feature-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .feature-visual {
+        height: 200px;
+    }
+
+    /* Hexagon showcase */
+    .hexagon-container {
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    .hexagon {
+        width: 150px;
+        height: 200px;
+        margin: 10px;
+    }
+
+    .hexagon-inner {
+        padding: 30px 15px;
+    }
+
+    /* Timeline */
+    .timeline-line {
+        left: 20px;
+    }
+
+    .timeline-item {
+        padding-right: 0;
+        padding-left: 60px;
+        justify-content: flex-start !important;
+    }
+
+    .timeline-item:nth-child(even) {
+        padding-left: 60px;
+        padding-right: 0;
+    }
+
+    .timeline-content {
+        max-width: 100%;
+        padding: 30px 20px;
+        font-size: 0.9rem;
+    }
+
+    /* Contact */
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .contact-info {
+        padding: 30px 20px;
+    }
+
+    /* General spacing */
+    .section-title {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+        margin-bottom: 50px;
+    }
+
+    .features-container {
+        padding: 0 15px;
+    }
+
+    .diagonal-grid {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        top: 8px;
+        padding: 10px 15px;
+    }
+
+    .logo-text {
+        display: none; /* Hide logo text on very small screens */
+    }
+
+    :root { --logo-size: 28px; }
+
+    .hero-content {
+        padding: 50px 15px;
+        margin-top: 80px;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+
+    .feature-content {
+        padding: 20px;
+    }
+
+    .hexagon {
+        width: 120px;
+        height: 160px;
+    }
+
+    .hexagon-inner {
+        padding: 20px 10px;
+    }
+
+    .hexagon h4 {
+        font-size: 1rem;
+    }
+
+    .timeline-content {
+        padding: 20px 15px;
+    }
+
+    .timeline-year {
+        font-size: 1.2rem;
+    }
+}
