@@ -1300,11 +1300,14 @@
   white-space: nowrap;
   animation: sponsorScroll var(--duration, 12s) linear infinite;
   will-change: transform;
+  margin: 10px 0;
 }
 
 .sponsor-track img {
   display: block;
+  display: block;
   height: 120px;
+  margin-right: 10px;
   width: auto;
   object-fit: contain;
   filter: brightness(0.96);
