@@ -1306,9 +1306,9 @@
 .sponsor-track img {
   display: block;
   display: block;
-  height: 120px;
+  height: auto;
   margin-right: 10px;
-  width: auto;
+  width: 100px;
   object-fit: contain;
   filter: brightness(0.96);
   transition: transform 0.15s ease;
