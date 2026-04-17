@@ -369,6 +369,59 @@ Together, we can build something extraordinary.</p>
 
     <!-- Footer -->
     <footer>
+        <!-- Dino game -->
+        <section>
+          <p id="score">Score: <span id="scoreSpan"></span></p>
+          <div class="game">
+            <div id="player"></div>
+            <div id="block"></div>
+          </div>
+          <script src="scriptdino.js"></script>
+        </section>
+      </main>
+
+      <footer class="center">
+        <div class="small">© <span id="year"></span> Mercia Robotics — Mercia School. Made with love ❤️</div>
+      </footer>
+    </div> <!-- /.site -->
+
+    <!-- Third-party libs -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- App scripts -->
+    <script src="script.js"></script>
+    <script defer src="cursor.js"></script>
+
+    <script>
+      // Set copyright year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Dot-layer simple particle behavior (non-blocking)
+      (function(){
+        const container = document.getElementById('dot-layer');
+        const numDots = 150;
+        for(let i=0;i<numDots;i++){
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          dot.style.left = Math.random() * window.innerWidth + 'px';
+          dot.style.top  = Math.random() * window.innerHeight + 'px';
+          container.appendChild(dot);
+          setInterval(()=> {
+            dot.style.opacity = (Math.random()).toFixed(2);
+            dot.style.transform = `scale(${Math.random()*0.5+0.5})`;
+          }, Math.random()*2000 + 500);
+        }
+      })();
+    </script>
+  </div> <!-- /#dot-layer -->
+
+
+
+
+
+
+        
         <div class="footer-content">
             <div class="footer-links">
                 <a href="#features">About Us</a>
