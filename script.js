@@ -177,50 +177,50 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Form submission effect — after animation navigate to donate link (if present)
-(function() {
-  const submitBtn = document.querySelector('.submit-btn');
-  if (!submitBtn) return;
+// (function() {
+//   const submitBtn = document.querySelector('.submit-btn');
+//   if (!submitBtn) return;
 
-  submitBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    const btn = this;
-    btn.innerHTML = 'TRANSMITTING...';
-    btn.style.background = 'linear-gradient(45deg, #8000ff, #00ffff)';
+//   submitBtn.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     const btn = this;
+//     btn.innerHTML = 'TRANSMITTING...';
+//     btn.style.background = 'linear-gradient(45deg, #8000ff, #00ffff)';
 
-    setTimeout(() => {
-      btn.innerHTML = 'TRANSMISSION COMPLETE';
-      btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+//     setTimeout(() => {
+//       btn.innerHTML = 'TRANSMISSION COMPLETE';
+//       btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
 
-      setTimeout(() => {
-        btn.innerHTML = 'TRANSMIT TO MATRIX';
-        btn.style.background = 'linear-gradient(45deg, #00ffff, #ff0080)';
+//       setTimeout(() => {
+//         btn.innerHTML = 'TRANSMIT TO MATRIX';
+//         btn.style.background = 'linear-gradient(45deg, #00ffff, #ff0080)';
 
-        // find link to navigate to:
-        // prefer nearest ancestor <a>, fall back to href on the button or data-href
-        const anchor = btn.closest('a');
-        let href = null;
-        let target = null;
-        if (anchor && anchor.getAttribute('href')) {
-          href = anchor.getAttribute('href');
-          target = anchor.getAttribute('target');
-        } else {
-          href = btn.getAttribute('href') || btn.dataset.href || null;
-        }
+//         // find link to navigate to:
+//         // prefer nearest ancestor <a>, fall back to href on the button or data-href
+//         const anchor = btn.closest('a');
+//         let href = null;
+//         let target = null;
+//         if (anchor && anchor.getAttribute('href')) {
+//           href = anchor.getAttribute('href');
+//           target = anchor.getAttribute('target');
+//         } else {
+//           href = btn.getAttribute('href') || btn.dataset.href || null;
+//         }
 
-        if (href) {
-          // small delay to allow the final state to be visible
-          setTimeout(() => {
-            if (target === '_blank') {
-              window.open(href, '_blank', 'noopener');
-            } else {
-              window.location.href = href;
-            }
-          }, 80);
-        }
-      }, 2000);
-    }, 1500);
-  });
-})();
+//         if (href) {
+//           // small delay to allow the final state to be visible
+//           setTimeout(() => {
+//             if (target === '_blank') {
+//               window.open(href, '_blank', 'noopener');
+//             } else {
+//               window.location.href = href;
+//             }
+//           }, 80);
+//         }
+//       }, 2000);
+//     }, 1500);
+//   });
+// })();
 
 // Seamless Infinite Sponsor Scroller
 (function () {
@@ -302,3 +302,128 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener("load", initSponsorsMarquee);
   }
 })();
+
+
+// ===============================
+// Dino Game with Sound Effects 🦖
+// ===============================
+
+// Global Variables
+const player = document.getElementById("player");
+const block = document.getElementById("block");
+let counter = 0;
+let frameCount = 0;
+let gameStarted = false;
+const collisionEvent = new Event("collision");
+const scoreUpEvent = new Event("scoreUp");
+
+// ===============================
+// 🎧 Sound Effects (MP3 in /sounds folder)
+// ===============================
+const jumpSound = new Audio("sounds/jump.mp3");
+const hitSound = new Audio("sounds/hit.mp3");
+const pointSound = new Audio("sounds/point.mp3");
+
+// Optional: preload for instant playback
+jumpSound.preload = "auto";
+hitSound.preload = "auto";
+pointSound.preload = "auto";
+
+// ===============================
+// 🕹️ Game Logic
+// ===============================
+
+// Start / Jump Logic
+function userInput() {
+  if (!gameStarted) {
+    gameStarted = true;
+    block.style.animation = "block 1s infinite linear";
+    gameLoop();
+    jump();
+  } else {
+    jump();
+  }
+}
+
+// Game Loop
+function gameLoop() {
+  const playerRect = player.getBoundingClientRect();
+  const blockRect = block.getBoundingClientRect();
+
+  // Collision detection
+  if (
+    playerRect.right >= blockRect.left &&
+    playerRect.left <= blockRect.right &&
+    playerRect.bottom >= blockRect.top &&
+    playerRect.top <= blockRect.bottom
+  ) {
+    player.dispatchEvent(collisionEvent);
+  } else {
+    frameCount++;
+    if (frameCount % 10 === 0) player.dispatchEvent(scoreUpEvent);
+  }
+
+  if (gameStarted) requestAnimationFrame(gameLoop);
+}
+
+// Jump Action
+function jump() {
+  if (player.classList.contains("animate")) return;
+  player.classList.add("animate");
+
+  // 🔊 Play jump sound
+  jumpSound.currentTime = 0;
+  jumpSound.play();
+
+  setTimeout(() => player.classList.remove("animate"), 300);
+}
+
+// ===============================
+// 🎯 Event Listeners
+// ===============================
+
+// Spacebar or click to play/jump
+function handleKeyDown(event) {
+  if (event.code === "Space" && event.target === document.body) {
+    event.preventDefault();
+    userInput();
+  }
+}
+
+document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("mousedown", userInput);
+
+// Collision event (Game Over)
+player.addEventListener("collision", () => {
+  gameStarted = false;
+  block.style.animation = "none";
+
+  // 🔊 Play hit sound
+  hitSound.currentTime = 0;
+  hitSound.play();
+
+  counter = 0;
+  updateScore();
+
+  const gameContainer = document.querySelector(".game");
+  gameContainer.style.backgroundColor = "red";
+  setTimeout(() => (gameContainer.style.backgroundColor = ""), 200);
+});
+
+// Score event
+player.addEventListener("scoreUp", () => {
+  counter++;
+  if (counter % 100 === 0) {
+    // 🔊 Play point sound every milestone
+    pointSound.currentTime = 0;
+    pointSound.play();
+  }
+  updateScore();
+});
+
+// ===============================
+// 🧮 Score Update
+// ===============================
+function updateScore() {
+  document.getElementById("scoreSpan").textContent = Math.floor(counter / 100);
+}
