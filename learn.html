@@ -4,39 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/logom.png">
-    <title>Mercia Robotics</title>
+    <title>Mercia Robotics — Resources</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 
     <style>
-       
+        /* Small page-specific overrides to center resources and style download button */
+        .resources-list{ max-width:1000px; margin:40px auto; padding:0 20px; }
+        .resource-item{ display:flex; flex-direction:column; align-items:center; gap:16px; padding:20px; margin:20px 0; }
+        .resource-thumb{ width:240px; height:160px; object-fit:cover; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+        .resource-meta{ text-align:center; max-width:700px; }
+        .download-btn{ display:inline-block; align-items:center; gap:8px; padding:10px 14px; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.08); color:inherit; border-radius:8px; text-decoration:none; font-weight:700; }
+        .download-btn svg{ width:18px; height:18px; }
+        .hero.small-hero{ padding:36px 20px; }
     </style>
 </head>
 <body>
-    <!-- Epic Background -->
     <div class="neural-background"></div>
-    
-    <!-- Floating Geometric Shapes -->
-    <div class="geometric-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
 
-    <!-- Lines -->
-    <div class="neural-lines">
-        <div class="neural-line"></div>
-        <div class="neural-line"></div>
-        <div class="neural-line"></div>
-    </div>
-
-    <!-- Header -->
     <header class="glass">
         <nav>
-            <a href="#home" class="logo">
+            <a href="/" class="logo">
                 <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mercia Robotics logo">
                     <defs>
                         <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -53,7 +43,7 @@
                 <span class="logo-text">MERCIA ROBOTICS</span>
             </a>
 
-            <ul class="nav-links">
+           <ul class="nav-links">
                 <li><a href="/resources">Resources</a></li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/learn">Learn</a></li>
@@ -74,16 +64,123 @@
                 <a href="news">News</a>
                 <a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a>
             </div>
-        </nav>
     </header>
 
-    <div class="home" id="learnhome">
+    <main class="resources-page">
+        <section class="hero glass small-hero">
+            <div class="hero-content">
+                <div class="hero-subtitle">Learn About Robots</div>
+                <h1>Learn</h1>
+                <p class="hero-description">Usefull resources and our robot portfolio.</p>
+            </div>
+        </section>
 
-    </div>
+        <section class="resources-list" id="resources">
 
-    <div class="contact-info glass">
-        <p>Check out the FTC docs for more info.</p>
-        <a href="https://ftc-docs.firstinspires.org/en/latest/" class="glass"><img src = "ftc image.png" width=32 height=32></a>
-    </div>
+            <div class="resource-item glass">
+                <img class="resource-thumb" src="CAD/Screenshot 2026-01-16 at 16.21.10.png" alt="Team Manual thumbnail">
+                <div class="resource-meta">
+                    <h3>8mm to 5mm hex insert</h3>
+                    <p>...</p>
+                </div>
+                <a class="download-btn" href="CAD/8mm to 5mm hex insert.step" download aria-label="Download Team Manual">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STEP Download
+                </a><a class="download-btn" href="CAD/8mm to 5mm hex insert.stl" download aria-label="Download Team Manual">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STL Download
+                </a>
+                
+            </div>
+                <div class="contact-info glass">
+                <p>Check out the FTC docs for more info.</p>
+                <a href="https://ftc-docs.firstinspires.org/en/latest/" class="glass"><img src = "ftc image.png" width=32 height=32></a>
+            </div>
 
+            <div class="resource-item glass">
+                <img class="resource-thumb" src="CAD/Screenshot 2026-01-16 at 16.21.58.png" alt="Build Guide thumbnail">
+                <div class="resource-meta">
+                    <h3>Bearing Block for 8mm deep groove bearing</h3>
+                    <p>...</p>
+                </div>
+                <a class="download-btn" href="CAD/Bearing Block for 8mm deep groove bearing.step" download aria-label="Download Robot Build Guide">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STEP Download
+                </a>
+                <a class="download-btn" href="CAD/Bearing Block for 8mm deep groove bearing.stl" download aria-label="Download Robot Build Guide">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STL Download
+                </a>
+            </div>
+
+            <div class="resource-item glass">
+                <img class="resource-thumb" src="CAD/Screenshot 2026-01-16 at 16.20.07.png" alt="Wiring Diagram thumbnail">
+                <div class="resource-meta">
+                    <h3>Number Plate Holder L Side</h3>
+                    <p>...</p>
+                </div>
+                <a class="download-btn" href="CAD/Number Plate Holder L Side.step" download aria-label="Download Wiring Diagram">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STEP Download
+                </a>
+                <a class="download-btn" href="CAD/Number Plate Holder L Side.stl" download aria-label="Download Wiring Diagram">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STL Download
+                </a>
+            </div>
+
+            <div class="resource-item glass">
+                <img class="resource-thumb" src="CAD/Screenshot 2026-01-16 at 16.20.07.png" alt="Wiring Diagram thumbnail">
+                <div class="resource-meta">
+                    <h3>Number Plate Holder R Side</h3>
+                    <p>...</p>
+                </div>
+                <a class="download-btn" href="CAD/Number Plate Holder R Side.step" download aria-label="Download Wiring Diagram">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STEP Download
+                </a>
+                <a class="download-btn" href="CAD/Number Plate Holder R Side.stl" download aria-label="Download Wiring Diagram">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STL Download
+                </a>
+            </div>
+
+            <div class="resource-item glass">
+                <img class="resource-thumb" src="CAD/Screenshot 2026-01-16 at 16.20.45.png" alt="Sponsor packet thumbnail">
+                <div class="resource-meta">
+                    <h3>Number Plate</h3>
+                    <p>...</p>
+                </div>
+                <a class="download-btn" href="CAD/Number Plate.step" download aria-label="Download Sponsor Packet">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STEP Download
+                </a>
+                <a class="download-btn" href="CAD/Number Plate.stl" download aria-label="Download Sponsor Packet">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    STL Download
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html#features">About Us</a>
+                <a href="index.html#showcase">Team</a>
+                <a href="https://instagram.com/merciarobotics" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://github.com/merciarobotics" target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year">2026</span> Mercia Robotics — Mercia School. Made with love ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+
+    
+
+<script src="script.js"></script>
 </body>
+</html>
