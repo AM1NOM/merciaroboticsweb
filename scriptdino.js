@@ -107,7 +107,7 @@ player.addEventListener("collision", () => {
 // Score event
 player.addEventListener("scoreUp", () => {
   counter++;
-  if (counter % 6 === 0) {
+  if (counter % 100 === 0) {
     // 🔊 Play point sound every milestone
     pointSound.currentTime = 0;
     pointSound.play();
@@ -119,5 +119,5 @@ player.addEventListener("scoreUp", () => {
 // 🧮 Score Update
 // ===============================
 function updateScore() {
-  document.getElementById("scoreSpan").textContent = Math.floor((counter+0.1)/6);
+  document.getElementById("scoreSpan").textContent = Math.floor(counter / 100);
 }
