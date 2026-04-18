@@ -11,7 +11,7 @@ html {
  body {
      font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
      background: #000;
-     color: #ffa3ac;
+     color: #aca3ff;
      overflow-x: hidden;
      min-height: 100vh;
      font-weight: 400;
@@ -128,7 +128,7 @@ html {
      top: 60%;
      left: 0;
      width: 100%;
-     background: linear-gradient(90deg, transparent, #b90707, transparent);
+     background: linear-gradient(90deg, transparent, #072eb9, transparent);
      animation-delay: -1s;
 }
  .neural-line:nth-child(3) {
