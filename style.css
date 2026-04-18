@@ -5,6 +5,9 @@
      padding: 0;
      box-sizing: border-box;
 }
+html {
+     overflow-x: hidden;
+}
  body {
      font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
      background: #000;
@@ -47,6 +50,7 @@
      height: 100%;
      z-index: -1;
      overflow: hidden;
+     pointer-events: none;
 }
  .shape {
      position: absolute;
@@ -81,7 +85,7 @@
      height: 120px;
      left: 50%;
      animation-delay: -15s;
-
+     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
      background: linear-gradient(45deg, rgba(255, 105, 180, 0.1), transparent);
 }
  @keyframes floatShape {
@@ -105,6 +109,7 @@
      width: 100%;
      height: 100%;
      z-index: -1;
+     pointer-events: none;
 }
  .neural-line {
      position: absolute;
@@ -335,6 +340,7 @@
      flex-direction: column;
      gap: 20px;
      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+     z-index: 99;
 }
  .mobile-nav.active {
      display: flex;
@@ -401,7 +407,7 @@
  .hero-content {
      max-width: 1000px;
      padding: 80px 40px;
-	 margin-top: 120px;
+     margin-top: 120px;
      animation: heroAppear 2.5s ease-out;
      position: relative;
      background: none;
@@ -625,7 +631,7 @@
      background: rgba(224, 163, 255, 0.08);
      box-shadow: 0 12px 30px rgba(224, 163, 255, 0.2);
 }
-/* Section 2: Diagonal Features */
+/* Section 2: Features — skew removed, flat cards */
  .features {
      padding: 150px 0;
      position: relative;
@@ -687,14 +693,15 @@
  .feature-row:nth-child(even) {
      flex-direction: row-reverse;
 }
+ /* FLAT cards — skew removed */
  .feature-content {
      flex: 1;
      padding: 50px;
-     transform: skew(-5deg);
+     transform: none;
      transition: all 0.4s ease;
 }
  .feature-content:hover {
-     transform: skew(-5deg) translateY(-10px);
+     transform: translateY(-10px);
      box-shadow: 0 30px 60px rgba(0, 255, 255, 0.2);
 }
  .feature-visual {
@@ -1124,27 +1131,26 @@
 }
 /* Mobile Responsiveness */
  @media (max-width: 1024px) {
-	 .feature-row {
+     .feature-row {
         flex-direction: column;
         gap: 40px;
-		min-height: 720px;
+        min-height: unset;
     }
-
     .feature-row:nth-child(even) {
         flex-direction: column;
     }
-	.feature-content {
-    	flex: 0;
-	}
+    .feature-content {
+        flex: 0;
+        width: 100%;
+    }
     .feature-visual {
-        height: 250px; /* Adjust the height for mobile view */
+        height: 250px;
         width: 100%;
     }
      .contact-container {
          grid-template-columns: 1fr;
          gap: 40px;
     }
-
      .timeline-line {
          left: 30px;
     }
@@ -1165,7 +1171,6 @@
     .nav-links {
         display: none;
     }
-
     .mobile-menu-toggle {
         display: flex;
     }
@@ -1210,35 +1215,29 @@
          max-width: 280px;
          text-align: center;
     }
-    /* Update the existing hexagon styles for mobile */
     .hexagon {
-        width: 280px;  /* Increased from 180px */
-        height: 320px; /* Increased from 200px */
-        margin: 30px auto; /* Center and add more spacing */
+        width: 280px;
+        height: 320px;
+        margin: 30px auto;
     }
-    
     .hexagon-inner {
-        padding: 60px 35px; /* More padding for larger content area */
+        padding: 60px 35px;
     }
-    
     .hexagon-icon {
-        font-size: 3.5rem; /* Larger icon */
+        font-size: 3.5rem;
         margin-bottom: 25px;
     }
-    
     .hexagon h4 {
-        font-size: 1.6rem; /* Larger heading */
+        font-size: 1.6rem;
         margin-bottom: 20px;
     }
-    
     .hexagon p {
-        font-size: 1.1rem; /* Larger text */
-        max-width: 200px; /* More width for text */
+        font-size: 1.1rem;
+        max-width: 200px;
         line-height: 1.6;
     }
-    
     .hexagon-container {
-        gap: 20px; /* Reduce gap since boxes are larger */
+        gap: 20px;
     }
      .section-title {
          margin-bottom: 60px;
@@ -1276,23 +1275,22 @@
 }
 
 /* ===== Sponsors Section ===== */
-
 .sponsor-scroller {
   padding: 30px 0;
 }
-
 .scroller-title {
   text-align: center;
   font-size: 2.5rem;
   color: #00ffff;
   margin-bottom: 30px;
 }
-
 .sponsor-viewport {
   overflow: hidden;
   position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
 }
-
 .sponsor-track {
   display: flex;
   gap: 100px;
@@ -1301,10 +1299,9 @@
   animation: sponsorScroll var(--duration, 12s) linear infinite;
   will-change: transform;
   margin: 10px 0;
+  pointer-events: auto;
 }
-
 .sponsor-track img {
-  display: block;
   display: block;
   height: auto;
   margin-right: 10px;
@@ -1313,69 +1310,35 @@
   filter: brightness(0.96);
   transition: transform 0.15s ease;
 }
-
 .sponsor-track img:hover {
   transform: scale(1.08);
 }
-
-@keyframes sponsorScroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(-1 * var(--scroll-width, 100%)));
-  }
+.sponsor-track a {
+  pointer-events: auto;
 }
-
-/* CSS fallback: pause animation on hover / keyboard focus */
+@keyframes sponsorScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-1 * var(--scroll-width, 100%))); }
+}
 .sponsor-viewport:hover .sponsor-track,
 .sponsor-viewport:focus-within .sponsor-track {
   animation-play-state: paused !important;
 }
-
-
-/* Reduced-motion support */
 @media (prefers-reduced-motion: reduce) {
-  .sponsor-track {
-    animation: none;
-  }
+  .sponsor-track { animation: none; }
 }
 
-/* === Sponsor scroller interaction fixes (paste near end of stylesheet) === */
-
-/* Make decorative overlays non-interactive so they don't block the mouse */
+/* Make decorative overlays non-interactive */
 .geometric-shapes,
 .neural-lines,
 .shape,
 .neural-line,
-.particle, /* if your JS-created particles use this class; otherwise safe to keep */
+.particle,
 .quantum-particle {
   pointer-events: none !important;
 }
 
-/* Ensure the sponsor viewport can receive pointer events and sits above decor */
-.sponsor-viewport {
-  position: relative;      /* already set, but be explicit */
-  z-index: 10;             /* above negative-index decor but below header (header is z-index:100) */
-  pointer-events: auto;    /* ensure it accepts pointer events */
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Also make sure images inside are interactive (clickable) */
-.sponsor-track,
-.sponsor-track img,
-.sponsor-track a {
-  pointer-events: auto;
-}
-
-/* CSS fallback — already present but keep it (stronger with !important) */
-.sponsor-viewport:hover .sponsor-track,
-.sponsor-viewport:focus-within .sponsor-track {
-  animation-play-state: paused !important;
-}
-
-
-/* dino */
+/* dino game */
 .game {
   width: 500px;
   height: 200px;
@@ -1396,20 +1359,11 @@
   animation: jump 0.3s linear;
 }
 @keyframes jump {
-  0% {
-    top: 150px;
-  }
-  30% {
-    top: 100px;
-  }
-  70% {
-    top: 100px;
-  }
-  100% {
-    top: 150px;
-  }
+  0%   { top: 150px; }
+  30%  { top: 100px; }
+  70%  { top: 100px; }
+  100% { top: 150px; }
 }
-
 #block {
   background-color: green;
   width: 20px;
@@ -1419,12 +1373,8 @@
   left: 500px;
 }
 @keyframes block {
-  0% {
-    left: 500px;
-  }
-  100% {
-    left: -20px;
-  }
+  0%   { left: 500px; }
+  100% { left: -20px; }
 }
 #score {
   color: black;
