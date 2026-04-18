@@ -81,7 +81,7 @@
      height: 120px;
      left: 50%;
      animation-delay: -15s;
-     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+
      background: linear-gradient(45deg, rgba(255, 105, 180, 0.1), transparent);
 }
  @keyframes floatShape {
