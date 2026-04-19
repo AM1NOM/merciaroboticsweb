@@ -20,17 +20,17 @@ html {
      -moz-osx-font-smoothing: grayscale;
 }
 /* Background - deep black with red accents */
- .neural-background {
+.neural-background {
      position: fixed;
      top: 0;
      left: 0;
      width: 100%;
      height: 100%;
      z-index: -2;
-     background: radial-gradient(circle at 15% 85%, rgba(180, 0, 0, 0.3) 0%, transparent 50%),
-                 radial-gradient(circle at 85% 15%, rgba(100, 0, 0, 0.4) 0%, transparent 50%),
-                 radial-gradient(circle at 45% 60%, rgba(200, 0, 0, 0.2) 0%, transparent 50%),
-                 radial-gradient(circle at 70% 40%, rgba(80, 0, 0, 0.3) 0%, transparent 50%),
+     background: radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                 radial-gradient(circle at 85% 15%, rgba(200, 200, 200, 0.06) 0%, transparent 50%),
+                 radial-gradient(circle at 45% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                 radial-gradient(circle at 70% 40%, rgba(180, 180, 180, 0.04) 0%, transparent 50%),
                  linear-gradient(135deg, #0a0000 0%, #1a0000 50%, #000000 100%);
      animation: backgroundPulse 14s ease-in-out infinite;
 }
