@@ -143,7 +143,7 @@ function createQuantumParticle() {
 }
 
 // Generate quantum particles
-setInterval(createQuantumParticle, 1500);
+setInterval(createQuantumParticle, 300);
 
 // Intersection Observer for animations
 const observerOptions = {
