@@ -314,6 +314,7 @@ const block = document.getElementById("block");
 let counter = 0;
 let frameCount = 0;
 let gameStarted = false;
+let highScore = 0;
 const collisionEvent = new Event("collision");
 const scoreUpEvent = new Event("scoreUp");
 
@@ -424,7 +425,7 @@ player.addEventListener("scoreUp", () => {
 // ===============================
 // 🧮 Score Update
 // ===============================
-let highScore = 0;
+
 
 function updateScore() {
   const current = Math.floor(counter / 100);
