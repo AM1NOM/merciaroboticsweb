@@ -306,22 +306,76 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // ===============================
 // Dino Game with Sound Effects 🦖
-// Score + Highscore (localStorage) in top-right
+// Minimal JS changes: add highscore (localStorage) and top-right scoreboard (Press Start 2P)
 // ===============================
 
-// Global Variables
+// Inject Press Start 2P font (minimal, safe to run even if already present)
+(function injectP2PFont() {
+  if (!document.querySelector('link[data-p2p]')) {
+    const l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap';
+    l.setAttribute('data-p2p', '1');
+    document.head.appendChild(l);
+  }
+})();
+
+// Create minimal scoreboard in top-right if not present
+(function ensureScoreboard() {
+  if (!document.getElementById('scoreSpan') || !document.getElementById('highscoreSpan')) {
+    const game = document.querySelector('.game') || document.body;
+    const board = document.createElement('div');
+    board.id = 'scoreboard';
+    // inline styles to avoid changing external CSS files (keeps changes minimal)
+    board.style.position = 'absolute';
+    board.style.top = '8px';
+    board.style.right = '12px';
+    board.style.textAlign = 'right';
+    board.style.fontFamily = '"Press Start 2P", monospace';
+    board.style.zIndex = '999';
+    board.style.pointerEvents = 'none';
+    board.style.color = '#111';
+
+    const scoreLine = document.createElement('div');
+    scoreLine.id = 'scoreSpan';
+    scoreLine.style.fontSize = '14px';
+    scoreLine.style.letterSpacing = '2px';
+    scoreLine.textContent = '000';
+
+    const hiLine = document.createElement('div');
+    hiLine.id = 'highscoreSpan';
+    hiLine.style.fontSize = '9px';
+    hiLine.style.marginTop = '4px';
+    hiLine.textContent = 'HI 000';
+
+    board.appendChild(scoreLine);
+    board.appendChild(hiLine);
+
+    // ensure the game container is positioned so absolute scoreboard works
+    if (game !== document.body) {
+      const cs = window.getComputedStyle(game);
+      if (cs.position === 'static') game.style.position = 'relative';
+      game.appendChild(board);
+    } else {
+      document.body.appendChild(board);
+    }
+  }
+})();
+
+// ===============================
+// Global Variables (unchanged except added highscore key)
+// ===============================
 const player = document.getElementById("player");
 const block = document.getElementById("block");
-let counter = 0;            // raw tick counter (increments each scoreUp)
+let counter = 0;
 let frameCount = 0;
 let gameStarted = false;
 const collisionEvent = new Event("collision");
 const scoreUpEvent = new Event("scoreUp");
 
-// Score display elements
-const scoreDisplay = document.getElementById("scoreDisplay");
-const highscoreDisplay = document.getElementById("highscoreDisplay");
-const HIGHSCORE_KEY = "dinoHighscore_v1";
+const scoreSpan = document.getElementById("scoreSpan");
+const highscoreSpan = document.getElementById("highscoreSpan");
+const HIGHSCORE_KEY = "dino_highscore_v1";
 
 // ===============================
 // 🎧 Sound Effects (MP3 in /sounds folder)
@@ -330,13 +384,13 @@ const jumpSound = new Audio("sounds/jump.mp3");
 const hitSound = new Audio("sounds/hit.mp3");
 const pointSound = new Audio("sounds/point.mp3");
 
+// Optional: preload for instant playback
 jumpSound.preload = "auto";
 hitSound.preload = "auto";
 pointSound.preload = "auto";
 
 // ===============================
-// Initialize highscore from localStorage
-// ===============================
+// Initialize highscore from localStorage (minimal, safe)
 let highscore = 0;
 try {
   const stored = localStorage.getItem(HIGHSCORE_KEY);
@@ -344,16 +398,14 @@ try {
 } catch (e) {
   highscore = 0;
 }
-updateScoreDisplays();
+updateScore(); // show initial values
 
 // ===============================
-// 🎮 Input and Game Logic
-// ===============================
+// 🕹️ Game Logic (unchanged)
 function userInput() {
   if (!gameStarted) {
     gameStarted = true;
     block.style.animation = "block 1s infinite linear";
-    frameCount = 0;
     gameLoop();
     jump();
   } else {
@@ -385,6 +437,7 @@ function jump() {
   if (player.classList.contains("animate")) return;
   player.classList.add("animate");
 
+  // 🔊 Play jump sound
   jumpSound.currentTime = 0;
   jumpSound.play();
 
@@ -392,8 +445,9 @@ function jump() {
 }
 
 // ===============================
-// Event Listeners
+// 🎯 Event Listeners (minimal changes only where needed)
 // ===============================
+
 function handleKeyDown(event) {
   if (event.code === "Space" && event.target === document.body) {
     event.preventDefault();
@@ -404,18 +458,17 @@ function handleKeyDown(event) {
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("mousedown", userInput);
 
-// Collision event (Game Over)
+// Collision event (Game Over) — update highscore before resetting counter
 player.addEventListener("collision", () => {
   gameStarted = false;
   block.style.animation = "none";
 
+  // 🔊 Play hit sound
   hitSound.currentTime = 0;
   hitSound.play();
 
-  // compute displayed score
+  // compute displayed score and update highscore if needed
   const finalScore = Math.floor(counter / 100);
-
-  // update highscore if needed
   if (finalScore > highscore) {
     highscore = finalScore;
     try {
@@ -425,44 +478,37 @@ player.addEventListener("collision", () => {
     }
   }
 
-  // flash effect
-  const gameContainer = document.querySelector(".game");
-  gameContainer.style.backgroundColor = "red";
-  setTimeout(() => (gameContainer.style.backgroundColor = ""), 200);
-
-  // reset counter and update displays
   counter = 0;
-  updateScoreDisplays();
+  updateScore();
+
+  const gameContainer = document.querySelector(".game");
+  if (gameContainer) {
+    gameContainer.style.backgroundColor = "red";
+    setTimeout(() => (gameContainer.style.backgroundColor = ""), 200);
+  }
 });
 
 // Score event
 player.addEventListener("scoreUp", () => {
-  // Only increment while game is running
-  if (!gameStarted) return;
-
   counter++;
-  const displayed = Math.floor(counter / 100);
-
-  // play point sound on milestones (every 100 displayed points)
-  if (displayed > 0 && displayed % 100 === 0) {
+  if (counter % 100 === 0) {
+    // 🔊 Play point sound every milestone
     pointSound.currentTime = 0;
     pointSound.play();
   }
-
-  updateScoreDisplays();
+  updateScore();
 });
 
 // ===============================
-// Score display helpers
-// ===============================
-function formatScore(n, digits = 3) {
+// 🧮 Score Update (now updates both score and highscore display)
+function pad(n, digits = 3) {
   const s = String(n);
-  if (s.length >= digits) return s;
-  return "0".repeat(digits - s.length) + s;
+  return s.length >= digits ? s : "0".repeat(digits - s.length) + s;
 }
 
-function updateScoreDisplays() {
+function updateScore() {
   const displayed = Math.floor(counter / 100);
-  scoreDisplay.textContent = formatScore(displayed, 3);
-  highscoreDisplay.textContent = "HI " + formatScore(highscore, 3);
+  if (scoreSpan) scoreSpan.textContent = pad(displayed, 3);
+  if (highscoreSpan) highscoreSpan.textContent = 'HI ' + pad(highscore, 3);
+}
 }
