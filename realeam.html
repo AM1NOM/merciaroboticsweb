@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/logom.png">
+    <title>Mercia Robotics — Learn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+    <style>
+        /* Small page-specific overrides to center resources and style download button */
+        .resources-list{ max-width:1000px; margin:40px auto; padding:0 20px; }
+        .resource-item{ display:flex; flex-direction:column; align-items:center; gap:16px; padding:20px; margin:20px 0; }
+        .resource-thumb{ width:240px; height:160px; object-fit:cover; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+        .resource-meta{ text-align:center; max-width:700px; }
+        .download-btn{ display:inline-block; align-items:center; gap:8px; padding:10px 14px; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.08); color:inherit; border-radius:8px; text-decoration:none; font-weight:700; }
+        .download-btn svg{ width:18px; height:18px; }
+        .hero.small-hero{ padding:36px 20px; }
+    </style>
+</head>
+<body>
+    <div class="neural-background"></div>
+
+    <header class="glass">
+        <nav>
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mercia Robotics logo">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e0a3ff"/>
+                            <stop offset="50%" stop-color="#ff69b4"/>
+                            <stop offset="100%" stop-color="#9370db"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- use <image> to embed a raster logo inside the svg -->
+                    <image href="images/logos.png" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid slice" />
+                </svg>
+
+                <span class="logo-text">MERCIA ROBOTICS</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+
+            <div class="mobile-nav">
+                <a href="resources">Resources</a>
+                <a href="index.html">Home</a>
+                <a href="learn">Learn</a>
+                <a href="news">News</a>
+                <a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="resources-page">
+        <section class="hero glass small-hero">
+            <div class="hero-content">
+                <div class="hero-subtitle">Meet the Robots</div>
+                <h1>Team</h1>
+                <p class="hero-description">Meet the team behind the sucess.</p>
+            </div>
+        </section>
+
+        <section class="resources-list" id="news">
+
+            <div class="resource-item glass">
+                <div class="resource-meta">
+                    <div class="news-date">That guy</div>
+                    <div class="news-badge">Amin</div>
+                    <p>Amins a great help around the coding team except that hes kinda old</p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html#features">About Us</a>
+                <a href="index.html#showcase">Team</a>
+                <a href="https://instagram.com/merciarobotics" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://github.com/merciarobotics" target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year">2026</span> Mercia Robotics — Mercia School. Made with love ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
