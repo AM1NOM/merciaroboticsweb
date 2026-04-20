@@ -306,65 +306,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // ===============================
 // Dino Game with Sound Effects 🦖
-// Minimal JS changes: add highscore (localStorage) and top-right scoreboard (Press Start 2P)
 // ===============================
 
-// Inject Press Start 2P font (minimal, safe to run even if already present)
-(function injectP2PFont() {
-  if (!document.querySelector('link[data-p2p]')) {
-    const l = document.createElement('link');
-    l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap';
-    l.setAttribute('data-p2p', '1');
-    document.head.appendChild(l);
-  }
-})();
-
-// Create minimal scoreboard in top-right if not present
-(function ensureScoreboard() {
-  if (!document.getElementById('scoreSpan') || !document.getElementById('highscoreSpan')) {
-    const game = document.querySelector('.game') || document.body;
-    const board = document.createElement('div');
-    board.id = 'scoreboard';
-    // inline styles to avoid changing external CSS files (keeps changes minimal)
-    board.style.position = 'absolute';
-    board.style.top = '8px';
-    board.style.right = '12px';
-    board.style.textAlign = 'right';
-    board.style.fontFamily = '"Press Start 2P", monospace';
-    board.style.zIndex = '999';
-    board.style.pointerEvents = 'none';
-    board.style.color = '#111';
-
-    const scoreLine = document.createElement('div');
-    scoreLine.id = 'scoreSpan';
-    scoreLine.style.fontSize = '14px';
-    scoreLine.style.letterSpacing = '2px';
-    scoreLine.textContent = '000';
-
-    const hiLine = document.createElement('div');
-    hiLine.id = 'highscoreSpan';
-    hiLine.style.fontSize = '9px';
-    hiLine.style.marginTop = '4px';
-    hiLine.textContent = 'HI 000';
-
-    board.appendChild(scoreLine);
-    board.appendChild(hiLine);
-
-    // ensure the game container is positioned so absolute scoreboard works
-    if (game !== document.body) {
-      const cs = window.getComputedStyle(game);
-      if (cs.position === 'static') game.style.position = 'relative';
-      game.appendChild(board);
-    } else {
-      document.body.appendChild(board);
-    }
-  }
-})();
-
-// ===============================
-// Global Variables (unchanged except added highscore key)
-// ===============================
+// Global Variables
 const player = document.getElementById("player");
 const block = document.getElementById("block");
 let counter = 0;
@@ -372,10 +316,6 @@ let frameCount = 0;
 let gameStarted = false;
 const collisionEvent = new Event("collision");
 const scoreUpEvent = new Event("scoreUp");
-
-const scoreSpan = document.getElementById("scoreSpan");
-const highscoreSpan = document.getElementById("highscoreSpan");
-const HIGHSCORE_KEY = "dino_highscore_v1";
 
 // ===============================
 // 🎧 Sound Effects (MP3 in /sounds folder)
@@ -390,18 +330,10 @@ hitSound.preload = "auto";
 pointSound.preload = "auto";
 
 // ===============================
-// Initialize highscore from localStorage (minimal, safe)
-let highscore = 0;
-try {
-  const stored = localStorage.getItem(HIGHSCORE_KEY);
-  if (stored !== null) highscore = parseInt(stored, 10) || 0;
-} catch (e) {
-  highscore = 0;
-}
-updateScore(); // show initial values
-
+// 🕹️ Game Logic
 // ===============================
-// 🕹️ Game Logic (unchanged)
+
+// Start / Jump Logic
 function userInput() {
   if (!gameStarted) {
     gameStarted = true;
@@ -413,6 +345,7 @@ function userInput() {
   }
 }
 
+// Game Loop
 function gameLoop() {
   const playerRect = player.getBoundingClientRect();
   const blockRect = block.getBoundingClientRect();
@@ -433,6 +366,7 @@ function gameLoop() {
   if (gameStarted) requestAnimationFrame(gameLoop);
 }
 
+// Jump Action
 function jump() {
   if (player.classList.contains("animate")) return;
   player.classList.add("animate");
@@ -445,9 +379,10 @@ function jump() {
 }
 
 // ===============================
-// 🎯 Event Listeners (minimal changes only where needed)
+// 🎯 Event Listeners
 // ===============================
 
+// Spacebar or click to play/jump
 function handleKeyDown(event) {
   if (event.code === "Space" && event.target === document.body) {
     event.preventDefault();
@@ -458,7 +393,7 @@ function handleKeyDown(event) {
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("mousedown", userInput);
 
-// Collision event (Game Over) — update highscore before resetting counter
+// Collision event (Game Over)
 player.addEventListener("collision", () => {
   gameStarted = false;
   block.style.animation = "none";
@@ -467,25 +402,12 @@ player.addEventListener("collision", () => {
   hitSound.currentTime = 0;
   hitSound.play();
 
-  // compute displayed score and update highscore if needed
-  const finalScore = Math.floor(counter / 100);
-  if (finalScore > highscore) {
-    highscore = finalScore;
-    try {
-      localStorage.setItem(HIGHSCORE_KEY, String(highscore));
-    } catch (e) {
-      // ignore storage errors
-    }
-  }
-
   counter = 0;
   updateScore();
 
   const gameContainer = document.querySelector(".game");
-  if (gameContainer) {
-    gameContainer.style.backgroundColor = "red";
-    setTimeout(() => (gameContainer.style.backgroundColor = ""), 200);
-  }
+  gameContainer.style.backgroundColor = "red";
+  setTimeout(() => (gameContainer.style.backgroundColor = ""), 200);
 });
 
 // Score event
@@ -500,15 +422,13 @@ player.addEventListener("scoreUp", () => {
 });
 
 // ===============================
-// 🧮 Score Update (now updates both score and highscore display)
-function pad(n, digits = 3) {
-  const s = String(n);
-  return s.length >= digits ? s : "0".repeat(digits - s.length) + s;
-}
+// 🧮 Score Update
+// ===============================
+let highScore = 0;
 
 function updateScore() {
-  const displayed = Math.floor(counter / 100);
-  if (scoreSpan) scoreSpan.textContent = pad(displayed, 3);
-  if (highscoreSpan) highscoreSpan.textContent = 'HI ' + pad(highscore, 3);
-}
+  const current = Math.floor(counter / 100);
+  if (current > highScore) highScore = current;
+  document.getElementById("scoreSpan").textContent = String(current).padStart(5, "0");
+  document.getElementById("highScoreSpan").textContent = String(highScore).padStart(5, "0");
 }
