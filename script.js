@@ -306,22 +306,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // ===============================
 // Dino Game with Sound Effects 🦖
-// Score + Highscore (localStorage) in top-right
 // ===============================
 
 // Global Variables
 const player = document.getElementById("player");
 const block = document.getElementById("block");
-let counter = 0;            // raw tick counter (increments each scoreUp)
+let counter = 0;
 let frameCount = 0;
 let gameStarted = false;
 const collisionEvent = new Event("collision");
 const scoreUpEvent = new Event("scoreUp");
-
-// Score display elements
-const scoreDisplay = document.getElementById("scoreDisplay");
-const highscoreDisplay = document.getElementById("highscoreDisplay");
-const HIGHSCORE_KEY = "dinoHighscore_v1";
 
 // ===============================
 // 🎧 Sound Effects (MP3 in /sounds folder)
@@ -330,30 +324,20 @@ const jumpSound = new Audio("sounds/jump.mp3");
 const hitSound = new Audio("sounds/hit.mp3");
 const pointSound = new Audio("sounds/point.mp3");
 
+// Optional: preload for instant playback
 jumpSound.preload = "auto";
 hitSound.preload = "auto";
 pointSound.preload = "auto";
 
 // ===============================
-// Initialize highscore from localStorage
+// 🕹️ Game Logic
 // ===============================
-let highscore = 0;
-try {
-  const stored = localStorage.getItem(HIGHSCORE_KEY);
-  if (stored !== null) highscore = parseInt(stored, 10) || 0;
-} catch (e) {
-  highscore = 0;
-}
-updateScoreDisplays();
 
-// ===============================
-// 🎮 Input and Game Logic
-// ===============================
+// Start / Jump Logic
 function userInput() {
   if (!gameStarted) {
     gameStarted = true;
     block.style.animation = "block 1s infinite linear";
-    frameCount = 0;
     gameLoop();
     jump();
   } else {
@@ -361,6 +345,7 @@ function userInput() {
   }
 }
 
+// Game Loop
 function gameLoop() {
   const playerRect = player.getBoundingClientRect();
   const blockRect = block.getBoundingClientRect();
@@ -381,10 +366,12 @@ function gameLoop() {
   if (gameStarted) requestAnimationFrame(gameLoop);
 }
 
+// Jump Action
 function jump() {
   if (player.classList.contains("animate")) return;
   player.classList.add("animate");
 
+  // 🔊 Play jump sound
   jumpSound.currentTime = 0;
   jumpSound.play();
 
@@ -392,8 +379,10 @@ function jump() {
 }
 
 // ===============================
-// Event Listeners
+// 🎯 Event Listeners
 // ===============================
+
+// Spacebar or click to play/jump
 function handleKeyDown(event) {
   if (event.code === "Space" && event.target === document.body) {
     event.preventDefault();
@@ -409,60 +398,37 @@ player.addEventListener("collision", () => {
   gameStarted = false;
   block.style.animation = "none";
 
+  // 🔊 Play hit sound
   hitSound.currentTime = 0;
   hitSound.play();
 
-  // compute displayed score
-  const finalScore = Math.floor(counter / 100);
+  counter = 0;
+  updateScore();
 
-  // update highscore if needed
-  if (finalScore > highscore) {
-    highscore = finalScore;
-    try {
-      localStorage.setItem(HIGHSCORE_KEY, String(highscore));
-    } catch (e) {
-      // ignore storage errors
-    }
-  }
-
-  // flash effect
   const gameContainer = document.querySelector(".game");
   gameContainer.style.backgroundColor = "red";
   setTimeout(() => (gameContainer.style.backgroundColor = ""), 200);
-
-  // reset counter and update displays
-  counter = 0;
-  updateScoreDisplays();
 });
 
 // Score event
 player.addEventListener("scoreUp", () => {
-  // Only increment while game is running
-  if (!gameStarted) return;
-
   counter++;
-  const displayed = Math.floor(counter / 100);
-
-  // play point sound on milestones (every 100 displayed points)
-  if (displayed > 0 && displayed % 100 === 0) {
+  if (counter % 100 === 0) {
+    // 🔊 Play point sound every milestone
     pointSound.currentTime = 0;
     pointSound.play();
   }
-
-  updateScoreDisplays();
+  updateScore();
 });
 
 // ===============================
-// Score display helpers
+// 🧮 Score Update
 // ===============================
-function formatScore(n, digits = 3) {
-  const s = String(n);
-  if (s.length >= digits) return s;
-  return "0".repeat(digits - s.length) + s;
-}
+let highScore = 0;
 
-function updateScoreDisplays() {
-  const displayed = Math.floor(counter / 100);
-  scoreDisplay.textContent = formatScore(displayed, 3);
-  highscoreDisplay.textContent = "HI " + formatScore(highscore, 3);
+function updateScore() {
+  const current = Math.floor(counter / 100);
+  if (current > highScore) highScore = current;
+  document.getElementById("scoreSpan").textContent = String(current).padStart(5, "0");
+  document.getElementById("highScoreSpan").textContent = String(highScore).padStart(5, "0");
 }
