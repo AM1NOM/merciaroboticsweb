@@ -592,4 +592,4 @@ html {
   left: 500px;
 }
 @keyframes block { 0% { left: 500px; } 100% { left: -20px; } }
-#score { display:none; } /* keep original element hidden if present */
+
