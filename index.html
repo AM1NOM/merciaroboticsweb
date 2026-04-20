@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 
     <style>
@@ -375,12 +376,18 @@ Together, we can build something extraordinary.</p>
     <!-- Footer -->
     <footer>
         <div class="frame">
-            <p id="score">Score: <span id="scoreSpan"></span></p>
-            <div class="game">
-              <div id="player"></div>
-              <div id="block"></div>
+          <div class="game">
+            <div id="player"></div>
+            <div id="block"></div>
+        
+            <!-- Scoreboard in top-right -->
+            <div class="scoreboard" aria-hidden="true">
+              <div id="scoreDisplay" class="score-line">000</div>
+              <div id="highscoreDisplay" class="small-line">HI 000</div>
             </div>
+          </div>
         </div>
+
         
         <div class="footer-content">
             <div class="footer-links">
