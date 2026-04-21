@@ -143,7 +143,7 @@ function createQuantumParticle() {
 }
 
 // Generate quantum particles
-setInterval(createQuantumParticle, 300);
+setInterval(createQuantumParticle, 1500);
 
 // Intersection Observer for animations
 const observerOptions = {
@@ -376,7 +376,7 @@ function jump() {
   jumpSound.currentTime = 0;
   jumpSound.play();
 
-  setTimeout(() => player.classList.remove("animate"), 300);
+  setTimeout(() => player.classList.remove("animate"), 350);
 }
 
 // ===============================
@@ -392,7 +392,7 @@ function handleKeyDown(event) {
 }
 
 document.addEventListener("keydown", handleKeyDown);
-document.addEventListener("mousedown", userInput);
+document.querySelector(".game").addEventListener("mousedown", userInput);
 
 // Collision event (Game Over)
 player.addEventListener("collision", () => {
@@ -415,7 +415,6 @@ player.addEventListener("collision", () => {
 player.addEventListener("scoreUp", () => {
   counter++;
   if (counter % 100 === 0) {
-    // 🔊 Play point sound every milestone
     pointSound.currentTime = 0;
     pointSound.play();
   }
@@ -426,10 +425,8 @@ player.addEventListener("scoreUp", () => {
 // 🧮 Score Update
 // ===============================
 
-
 function updateScore() {
-  const current = Math.floor(counter / 100);
-  if (current > highScore) highScore = current;
-  document.getElementById("scoreSpan").textContent = String(current).padStart(5, "0");
+  if (counter > highScore) highScore = counter;
+  document.getElementById("scoreSpan").textContent = String(counter).padStart(5, "0");
   document.getElementById("highScoreSpan").textContent = String(highScore).padStart(5, "0");
 }
