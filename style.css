@@ -559,7 +559,7 @@ html {
 
 /* dino game */
 .game {
-  width: 95%;
+  width: 100%;
   height: auto;
   aspect-ratio: 50 / 21;
   margin: auto;
