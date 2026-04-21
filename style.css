@@ -28,7 +28,7 @@ html {
      height: 100%;
      z-index: -2;
      background: #0a0a0a;
-} animation: backgroundPulse 14s ease-in-out infinite;
+     animation: backgroundPulse 14s ease-in-out infinite;
 }
  @keyframes backgroundPulse {
      0%, 100% { filter: brightness(0.9) saturate(1.4) hue-rotate(0deg); }
@@ -371,9 +371,11 @@ html {
  .feature-visual { flex: 1; height: 300px; position: relative; border-radius: 20px; overflow: hidden; background-size: cover; background-position: center; background-repeat: no-repeat; transition: all 0.4s ease; }
  .feature-visual:hover { transform: scale(1.05); box-shadow: 0 20px 40px rgba(180, 0, 0, 0.3); }
  .feature-visual::before {
-     content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-     background: linear-gradient(45deg, rgba(180, 0, 0, 0.15), rgba(255, 50, 50, 0.1));
-     z-index: 1; backdrop-filter: blur(1px); transition: all 0.4s ease;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(45deg, rgba(180, 0, 0, 0.15), rgba(255, 50, 50, 0.1));
+    z-index: 1;
+    /* removed backdrop-filter: blur(1px) */
+    transition: all 0.4s ease;
 }
  .feature-visual:hover::before { background: linear-gradient(45deg, rgba(180, 0, 0, 0.25), rgba(255, 50, 50, 0.2)); }
  .feature-row:nth-child(1) .feature-visual { background-image: url('images/1.avif'); }
@@ -384,7 +386,36 @@ html {
  .feature-content h3 { font-size: 2.2rem; margin-bottom: 20px; color: #ffffff; }
  .feature-content p { font-size: 1.1rem; color: #cccccc; line-height: 1.8; }
 
+
+
+ .timeline-btn {
+    display: block;
+    margin: 12px auto 0;
+    padding: 8px 0;
+    width: 90%;
+    text-align: center;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.timeline-btn:hover {
+    background-color: #333;
+}
 /* Section 3: Hexagonal Showcase */
+ .hexagon-inner a {
+    text-decoration: none;
+    color: inherit;
+}
+.hexagon-inner a h4 {
+    transition: color 0.3s ease;
+}
+.hexagon-inner a:hover h4 {
+    color: #ff4444;
+}
  .showcase { padding: 150px 0; position: relative; }
  .hexagon-container { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
  .hexagon { width: 220px; height: 290px; position: relative; margin: 20px; transition: all 0.4s ease; }
@@ -445,6 +476,8 @@ html {
  .footer-links a:hover::after { width: 100%; }
  .footer-copyright { color: #888; font-size: 0.9rem; margin-bottom: 15px; }
  .footer-design { color: #666; font-size: 0.85rem; margin-top: 20px; }
+ .footer-copyright a { color: #ff4444; text-decoration: none; transition: all 0.3s ease; }
+ .footer-copyright a:hover { color: #ff6666; text-shadow: 0 0 8px rgba(200, 0, 0, 0.5); }
  .footer-design a { color: #ff4444; text-decoration: none; transition: all 0.3s ease; }
  .footer-design a:hover { color: #ff6666; text-shadow: 0 0 8px rgba(200, 0, 0, 0.5); }
 
@@ -453,7 +486,12 @@ html {
      .feature-row { flex-direction: column; gap: 40px; min-height: unset; }
      .feature-row:nth-child(even) { flex-direction: column; }
      .feature-content { flex: 0; width: 100%; }
-     .feature-visual { height: 250px; width: 100%; }
+     .feature-visual {
+        height: 250px;
+        width: 100%;
+        min-height: 220px;
+        flex-shrink: 0;
+    }
      .contact-container { grid-template-columns: 1fr; gap: 40px; }
      .timeline-line { left: 30px; }
      .timeline-item, .timeline-item:nth-child(even) { justify-content: flex-start; padding-left: 80px; padding-right: 0; }
@@ -476,12 +514,21 @@ html {
      .hero-subtitle::after { right: -35px; }
      .cta-buttons { flex-direction: column; align-items: center; gap: 15px; }
      .cta-button { width: 100%; max-width: 280px; text-align: center; }
-     .hexagon { width: 280px; height: 320px; margin: 30px auto; }
      .hexagon-inner { padding: 60px 35px; }
      .hexagon-icon { font-size: 3.5rem; margin-bottom: 25px; }
      .hexagon h4 { font-size: 1.6rem; margin-bottom: 20px; }
      .hexagon p { font-size: 1.1rem; max-width: 200px; line-height: 1.6; }
-     .hexagon-container { gap: 20px; }
+     .hexagon-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 15px;
+     }
+
+     .hexagon {
+        width: 100%;
+        margin: 0;
+     }
      .section-title { margin-bottom: 60px; }
      .features, .showcase, .timeline, .contact { padding: 80px 0; }
      .timeline { padding: 60px 0; }
@@ -511,85 +558,31 @@ html {
 .geometric-shapes, .neural-lines, .shape, .neural-line, .particle, .quantum-particle { pointer-events: none !important; }
 
 /* dino game */
-/* Frame container: black rounded square that clips overflow */
-/* Frame container (from earlier suggestion) */
-.frame {
-  width: 500px;
-  height: 200px;
-  margin: auto;
-  padding: 8px;
-  box-sizing: border-box;
-  background: #000;
-  border-radius: 24px;
-  overflow: hidden;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-}
-
-/* Game area */
 .game {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  border-radius: 12px;
-  position: relative;
+  width: 500px;
+  height: 210px;
+  margin: auto;
+  background-color: white;
+  border: 4px solid black;
+  border-radius: 16px;
   overflow: hidden;
-  font-family: "Press Start 2P", monospace;
+  position: relative;
 }
 
-/* Scoreboard (top-right) */
-.scoreboard {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  text-align: right;
-  color: #000; /* black text on light background like Dino */
-  z-index: 50;
-  line-height: 1;
-  user-select: none;
-  pointer-events: none;
+.animate {
+  animation: jump 0.4s linear;
 }
 
-/* Large score line */
-.score-line {
-  font-family: "Press Start 2P", monospace;
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: #111;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+
+#player { width: 50px; height: 50px; background-image: url("images/robot-preview.png"); background-size: cover; background-position: center; position: relative; top: 150px; }
+
+@keyframes jump {
+  0%   { top: 150px; }
+  20%  { top: 110px; }
+  50%  { top: 90px; }
+  80%  { top: 110px; }
+  100% { top: 150px; }
 }
 
-/* Smaller highscore line */
-.small-line {
-  font-family: "Press Start 2P", monospace;
-  font-size: 9px;
-  margin-top: 4px;
-  color: #111;
-  opacity: 0.9;
-}
-
-/* Your existing rules (kept and slightly adjusted to use absolute positioning for reliable collision) */
-#player {
-  width: 50px;
-  height: 50px;
-  background-image: url("images/robot-preview.png");
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  left: 40px;
-  top: 150px;
-}
-.animate { animation: jump 0.3s linear; }
-@keyframes jump { 0% { top: 150px; } 30% { top: 100px; } 70% { top: 100px; } 100% { top: 150px; } }
-
-#block {
-  background-color: darkred;
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 130px;
-  left: 500px;
-}
+#block { background-color: darkred; width: 20px; height: 20px; position: relative; top: 130px; left: 500px; }
 @keyframes block { 0% { left: 500px; } 100% { left: -20px; } }
-
