@@ -16,7 +16,7 @@
         .resource-item{ display:flex; flex-direction:column; align-items:center; gap:16px; padding:20px; margin:20px 0; }
         .resource-thumb{ width:240px; height:160px; object-fit:cover; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.25); }
         .resource-meta{ text-align:center; max-width:700px; }
-        .download-btn{ display:inline-block; align-items:center; gap:8px; padding:10px 14px; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.08); color:inherit; border-radius:8px; text-decoration:none; font-weight:700; }
+        .download-btn{ display:inline-block; align-items:center; gap:8px; padding:10px 14px; background:linear-gradient(180deg, rgba(180,0,0,0.08), rgba(180,0,0,0.04)); border:1px solid rgba(180,0,0,0.25); color:inherit; border-radius:8px; text-decoration:none; font-weight:700; }
         .download-btn svg{ width:18px; height:18px; }
         .hero.small-hero{ padding:36px 20px; }
     </style>
@@ -24,6 +24,7 @@
 <body>
     <div class="neural-background"></div>
 
+    <!-- Header -->
     <header class="glass">
         <nav>
             <a href="/" class="logo">
@@ -45,25 +46,25 @@
 
             <ul class="nav-links">
                 <li><a href="/resources">Resources</a></li>
-                <li><a href="index.html">Home</a></li>
                 <li><a href="/learn">Learn</a></li>
                 <li><a href="/news">News</a></li>
+                <li><a href="/team">Team</a></li>
                 <li><a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a></li>
             </ul>
+            
             <div class="mobile-menu-toggle">
-                
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
             </div>
-
-            <div class="mobile-nav">
-                <a href="/resources">Resources</a>
-                <a href="/index,html">Home</a>
-                <a href="/learn">Learn</a>
-                <a href="/news">News</a>
-                <a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a>
-            </div>
+        <div class="mobile-nav">
+            <a href="/resources">Resources</a>
+            <a href="/learn">Learn</a>
+            <a href="/news">News</a>
+            <a href="/team">Team</a>
+            <a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a>
+        </div>
+      </nav>
     </header>
 
     <main class="resources-page">
@@ -160,16 +161,37 @@
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
+        <div style="position: relative; width: 500px; margin: auto;">
+            <div id="scoreDisplay" style="
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                z-index: 10;
+                text-align: right;
+                font-family: 'Press Start 2P', monospace;
+                font-size: 12px;
+                color: #535353;
+            ">
+                <div>HI <span id="highScoreSpan">00000</span></div>
+                <div><span id="scoreSpan">00000</span></div>
+            </div>
+            <div class="game">
+                <div id="player"></div>
+                <div id="block"></div>
+            </div>
+        </div>
+        <div style="height: 20px;"></div>
         <div class="footer-content">
             <div class="footer-links">
-                <a href="index.html#features">About Us</a>
-                <a href="index.html#showcase">Team</a>
+                <a href="#features">About Us</a>
+                <a href="#showcase">Team</a>
                 <a href="https://instagram.com/merciarobotics" target="_blank" rel="noopener">Instagram</a>
-                <a href="https://github.com/merciarobotics" target="_blank" rel="noopener">GitHub</a>
+    			<a href="https://github.com/merciarobotics" target="_blank" rel="noopener">GitHub</a>
             </div>
             <div class="footer-copyright">
-                <p>&copy; <span id="year">2026</span> Mercia Robotics — Mercia School. Made with love ❤️</p>
+                <p>&copy; <span id="year"></span> | <a href="/" target="_blank" rel="nofollow noopener">Mercia Robotics</a> — <a href="https://mercia.school" target="_blank" rel="noopener">Mercia School</a> | Made with love ❤️</p>
             </div>
         </div>
     </footer>
