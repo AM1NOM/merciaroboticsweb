@@ -1,209 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet the Team</title>
+    <link rel="icon" type="image/png" href="images/logom.png">
+    <title>Mercia Robotics — Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
     <style>
-        body {
-            background-color: #1e1e1e;
-            color: #ffffff;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #00ff00;
-            text-shadow: 2px 2px 5px #000;
-        }
-
-        h2 {
-            margin-top: 30px;
-            font-size: 2em;
-            border-bottom: 2px solid #00cc00;
-            padding-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        p {
-            margin: 16px 0;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .member {
-            margin: 10px 0;
-            background: rgba(0, 255, 0, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-            cursor: pointer;
-        }
-
-        .member:hover {
-            background: rgba(0, 255, 0, 0.3);
-        }
-
-        .description {
-            display: none;
-            margin-top: 8px;
-            font-size: 0.9em;
-            color: #cccccc;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #00cc00;
-        }
-
-        th {
-            background-color: #333333;
-        }
-
-        td {
-            background-color: #262626;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.5em;
-            }
-
-            h2 {
-                font-size: 1.6em;
-            }
-        }
+        .resources-list{ max-width:1000px; margin:40px auto; padding:0 20px; }
+        .resource-item{ display:flex; flex-direction:column; align-items:center; gap:16px; padding:20px; margin:20px 0; }
+        .resource-thumb{ width:100%; max-width:600px; height:320px; object-fit:cover; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.5); }
+        .resource-meta{ text-align:center; max-width:700px; }
+        .resource-meta h3{ font-size:1.6rem; color:#ffffff; margin-bottom:12px; }
+        .resource-meta p{ font-size:1.05rem; color:#cccccc; line-height:1.7; margin-bottom:8px; }
+        .news-date{ font-size:0.85rem; color:#ff4444; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
+        .news-badge{ display:inline-block; padding:4px 12px; background:linear-gradient(135deg, #cc0000, #ff4444); color:#fff; border-radius:20px; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; }
+        .hero.small-hero{ padding:36px 20px; }
     </style>
 </head>
 <body>
-    <h1>Meet the Team</h1>
-    <p>Welcome to our team page! Click on a name to learn more about each member.</p>
+    <div class="neural-background"></div>
 
-    <h2>Development Team</h2>
-    <p>Committed to building the best Robot, they grind day and night.</p>
-    <ul>
-        <div class="member">
-            <li>Oscar Yan: Lead Developer</li>
-            <p class="description">Oscar architects the entire system and ensures every line of code is battle-tested.</p>
-        </div>
-        <div class="member">
-            <li>Xin: The Brawn</li>
-            <p class="description">Xin handles the heavy lifting—both in hardware and in motivation.</p>
-        </div>
-        <div class="member">
-            <li>Charlotte: The Brains</li>
-            <p class="description">Charlotte solves the toughest problems with elegance and precision.</p>
-        </div>
-        <div class="member">
-            <li>Talya: The Tinkerer</li>
-            <p class="description">Talya is always prototyping new ideas and refining the robot’s mechanics.</p>
-        </div>
-        <div class="member">
-            <li>Kayla: The Head Builder</li>
-            <p class="description">Coordinates the building of robotic architecture</p>
-        </div>
-    </ul>
+    <!-- Header -->
+    <header class="glass">
+        <nav>
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mercia Robotics logo">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e0a3ff"/>
+                            <stop offset="50%" stop-color="#ff69b4"/>
+                            <stop offset="100%" stop-color="#9370db"/>
+                        </linearGradient>
+                    </defs>
 
-    <h2>The Outreach Team</h2>
-    <p>Involved in reaching out to companies for funding and creating <span style="color:red;">content</span> on the side.</p>
-    <ul>
-        <div class="member">
-            <li>Maya: The Moneymaker</li>
-            <p class="description">Maya secures sponsorships and keeps the team financially afloat.</p>
-        </div>
-        <div class="member">
-            <li>Blake: Reels Strategist</li>
-            <p class="description">Chronically online.</p>
-        </div>
-    </ul>
+                    <!-- use <image> to embed a raster logo inside the svg -->
+                    <image href="images/logos.png" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid slice" />
+                </svg>
 
-    <h2>Design Team</h2>
-    <ul>
-        <div class="member">
-            <li>Ben: The Designer</li>
-            <p class="description">Ben brings ideas to life with sleek visuals and intuitive models.</p>
-        </div>
-        <div class="member">
-            <li>Edward: "I Have a Name!"</li>
-            <p class="description">The CAD Conquerer</p>
-        </div>
-        <div class="member">
-            <li>Jermy Jacob: Funny name</li>
-            <p class="description">"I blitz CAD" - The man himself</p>
-        </div>
-    </ul>
+                <span class="logo-text">MERCIA ROBOTICS</span>
+            </a>
 
-    <h2>Code Team</h2>
-    <ul>
-        <div class="member">
-            <li>Amin Bahrami: The Heart and Soul of Robotics</li>
-            <p class="description">Amin’s passion drives the team’s innovation and technical excellence.</p>
+            <ul class="nav-links">
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/team">Team</a></li>
+                <li><a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a></li>
+            </ul>
+            
+            <div class="mobile-menu-toggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        <div class="mobile-nav">
+            <a href="/resources">Resources</a>
+            <a href="/learn">Learn</a>
+            <a href="/news">News</a>
+            <a href="/team">Team</a>
+            <a href="https://instagram.com/merciarobotics" target="_blank" class="external-link">INSTAGRAM</a>
         </div>
-        <div class="member">
-            <li>Theo: The Team master</li>
-            <p class="description">"He's like a ... bundle of joy? -- someones words not mine"</p>
-        </div>
-        <div class="member">
-            <li>Kamil: The Worker</li>
-            <p class="description">Kamil is a coding machine</p>
-        </div>
-        <div class="member">
-            <li>Alf: Moon Man</li>
-            <p class="description">Alf, our Moon Man, with a smile on his face, and a sparkle in his eyes, codes vigilantly and innovates and expands our ideas.</p>
-        </div>
-        <div class="member">
-            <li>Nazar: The Coder</li>
-            <p class="description">Nazar writes clean, efficient code and keeps the group smiling</p>
-        </div>
-        <div class="member">
-            <li>Jeremiah</li>
-            <p class="description">Made this page :^|</p>
-        </div>
-    </ul>
+      </nav>
+    </header>
 
-    <h1>Our Schedule</h1>
-    <table>
-        <tr>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
-        </tr>
-        <tr>
-            <td>Chillin</td>
-            <td>Chillin</td>
-            <td>Blitzin</td>
-            <td>Chillin</td>
-            <td>BLITZING</td>
-            <td>Innovating</td>
-            <td>Reflecting</td>
-        </tr>
-    </table>
+    <main class="resources-page">
+        <section class="hero glass small-hero">
+            <div class="hero-content">
+                <div class="hero-subtitle">Meet the Robots</div>
+                <h1>Team</h1>
+                <p class="hero-description">Meet the team behind the sucess.</p>
+            </div>
+        </section>
 
-    <script>
-        document.querySelectorAll('.member').forEach(member => {
-            member.addEventListener('click', () => {
-                const desc = member.querySelector('.description');
-                desc.style.display = desc.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-    </script>
+        <section class="resources-list" id="news">
+
+            <div class="resource-item glass" id="mrrees">
+                <div class="resource-meta">
+                    <div class="news-badge">Coach</div>
+                    <h3>Mr Rees</h3>
+                    <p>The driving force behind Mercia Robotics, Mr Rees has guided the team through years of competition with patience, expertise, and a genuine belief in every student's potential.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="alfie">
+                <div class="resource-meta">
+                    <div class="news-badge">Coding Team</div>
+                    <h3>Alfie</h3>
+                    <p>Alfie brings sharp logical thinking to the coding team, consistently finding elegant solutions to complex programming challenges during build season.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="amin">
+                <div class="resource-meta">
+                    <div class="news-badge">Coding Team</div>
+                    <h3>Amin</h3>
+                    <p>Amin is a key contributor to the software side of the robot, combining strong technical skills with a passion for building things that actually work under pressure.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="ben">
+                <div class="resource-meta">
+                    <div class="news-badge">CAD Team</div>
+                    <h3>Ben</h3>
+                    <p>Ben designs precise and functional CAD models that form the physical backbone of the robot, translating engineering ideas into buildable reality.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="blake">
+                <div class="resource-meta">
+                    <div class="news-badge">Social Media Team</div>
+                    <h3>Blake</h3>
+                    <p>Blake manages the team's online presence, crafting content that connects Mercia Robotics with a wider audience across Instagram and TikTok.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="charlotte">
+                <div class="resource-meta">
+                    <div class="news-badge">Build Team</div>
+                    <h3>Charlotte</h3>
+                    <p>Charlotte is a reliable and skilled member of the build team, taking on hands-on construction tasks with care and a strong attention to detail.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="edward">
+                <div class="resource-meta">
+                    <div class="news-badge">CAD Team</div>
+                    <h3>Edward</h3>
+                    <p>Edward contributes detailed 3D designs to the CAD team, helping ensure every component fits together precisely before anything is physically assembled.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="jacob">
+                <div class="resource-meta">
+                    <div class="news-badge">CAD Team</div>
+                    <h3>Jacob</h3>
+                    <p>Jacob combines creativity with technical precision in CAD, producing designs that are both structurally sound and optimised for competition performance.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="kayla">
+                <div class="resource-meta">
+                    <div class="news-badge">Build Team</div>
+                    <h3>Kayla</h3>
+                    <p>Kayla is an enthusiastic and dependable member of the build team, always willing to take on new challenges and see a task through to completion.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="maya">
+                <div class="resource-meta">
+                    <div class="news-badge">Outreach Team</div>
+                    <h3>Maya</h3>
+                    <p>Maya leads the team's community engagement efforts, spreading awareness of FIRST and inspiring younger students to take an interest in science and technology.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="nazar">
+                <div class="resource-meta">
+                    <div class="news-badge">Coding Team</div>
+                    <h3>Nazar</h3>
+                    <p>Nazar brings a methodical approach to programming, helping the coding team write clean, reliable code that holds up when it matters most on the competition floor.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="oscar">
+                <div class="resource-meta">
+                    <div class="news-badge">Build Team</div>
+                    <h3>Oscar</h3>
+                    <p>Oscar is a resourceful member of the build team with a knack for practical problem-solving, often finding quick fixes during time-pressured build sessions.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="talya">
+                <div class="resource-meta">
+                    <div class="news-badge">Build Team</div>
+                    <h3>Talya</h3>
+                    <p>Talya contributes consistently to the physical construction of the robot, combining careful workmanship with a collaborative attitude that keeps the team moving forward.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="theo">
+                <div class="resource-meta">
+                    <div class="news-badge">Coding Team</div>
+                    <h3>Theo</h3>
+                    <p>Theo is a skilled programmer who plays a key role in developing the robot's autonomous routines, bringing both technical ability and creative thinking to the software team.</p>
+                </div>
+            </div>
+
+            <div class="resource-item glass" id="xin">
+                <div class="resource-meta">
+                    <div class="news-badge">Build Team</div>
+                    <h3>Xin</h3>
+                    <p>Xin is a dedicated member of the build team who approaches every task with focus and precision, helping ensure the robot is assembled to the highest possible standard.</p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div style="position: relative; width: 500px; margin: auto;">
+            <div id="scoreDisplay" style="
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                z-index: 10;
+                text-align: right;
+                font-family: 'Press Start 2P', monospace;
+                font-size: 12px;
+                color: #535353;
+            ">
+                <div>HI <span id="highScoreSpan">00000</span></div>
+                <div><span id="scoreSpan">00000</span></div>
+            </div>
+            <div class="game">
+                <div id="player"></div>
+                <div id="block"></div>
+            </div>
+        </div>
+        <div style="height: 20px;"></div>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#features">About Us</a>
+                <a href="#showcase">Team</a>
+                <a href="https://instagram.com/merciarobotics" target="_blank" rel="noopener">Instagram</a>
+    			<a href="https://github.com/merciarobotics" target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> | <a href="/" target="_blank" rel="nofollow noopener">Mercia Robotics</a> — <a href="https://mercia.school" target="_blank" rel="noopener">Mercia School</a> | Made with love ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+<script src="script.js"></script>
 </body>
 </html>
