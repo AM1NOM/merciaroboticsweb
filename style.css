@@ -559,9 +559,8 @@ html {
 
 /* dino game */
 .game {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 50 / 21;
+  width: 500px;
+  height: 210px;
   margin: auto;
   background-color: white;
   border: 4px solid black;
